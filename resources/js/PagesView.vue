@@ -13,14 +13,14 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
-                <a v-link="{ name: 'pages' }">manage content</a>
+            <div class="col-xs-3">
+                <a v-link="{ name: 'page_create' }">creage page</a>
+                <a v-link="{ name: 'page_edit', params: {id : 1} }">edit page</a>
+                TREE
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-12">
-                Dashboard
+            <div class="col-xs-9">
+                <router-view></router-view>
             </div>
         </div>
 

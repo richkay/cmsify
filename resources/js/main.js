@@ -22,8 +22,7 @@ Vue.filter('chunk', function (array, length) {
 var App = Vue.extend({
 
     data() {
-        return {
-        }
+        return {}
     },
 
     computed: {
@@ -32,24 +31,38 @@ var App = Vue.extend({
         }
     },
 
-    components: {
-    },
+    components: {},
 
-    methods: {
-    },
+    methods: {},
 
     events: {}
 
 });
 
-import dashboard from './DashboardView.vue';
 
 var router = new VueRouter();
 router.map({
     '/': {
         name: 'dashboard',
-        component: dashboard
+        component: require('./DashboardView.vue')
     },
-})
+    '/pages': {
+        name: 'pages',
+        component: require('./PagesView.vue'),
+        subRoutes: {
+            '/': {
+                component: require('./pages/index.vue')
+            },
+            '/create': {
+                name: 'page_create',
+                component: require('./pages/create.vue')
+            },
+            '/edit/:id': {
+                name: 'page_edit',
+                component: require('./pages/edit.vue')
+            }
+        },
+    },
+});
 
 router.start(App, '#cmsify');
