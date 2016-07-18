@@ -1,5 +1,10 @@
 <script>
-    export default {}
+
+    export default {
+
+
+    }
+
 </script>
 
 <template>
@@ -16,7 +21,7 @@
             <div class="col-xs-3">
                 <a v-link="{ name: 'page_create' }">creage page</a>
                 <a v-link="{ name: 'page_edit', params: {id : 1} }">edit page</a>
-                TREE
+                <cmsify-category></cmsify-category>
             </div>
 
             <div class="col-xs-9">

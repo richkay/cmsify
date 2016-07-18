@@ -3,6 +3,9 @@ import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import moment from 'momentjs';
 
+Vue.component('cmsify-category', require('./components/CategoryTree.vue'));
+Vue.component('cmsify-category-node', require('./components/CategoryNode.vue'));
+
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
