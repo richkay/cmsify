@@ -2,6 +2,7 @@
 
 use Cmsify\Category;
 use Cmsify\Comment;
+use Cmsify\Jobs\PostDeleteJob;
 use Cmsify\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -68,11 +69,7 @@ class CategoriesPostsController extends Controller
      */
     public function destroy($categoryId, $id)
     {
-        $post = Post::findOrFail($id);
-        $post->categories()->detach();
-//        $post->comments()->delete();
-        $post->delete();
-        return $post;
+        return $this->dispatch(new PostDeleteJob($id));
     }
 
 }
