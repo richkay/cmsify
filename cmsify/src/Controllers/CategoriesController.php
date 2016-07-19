@@ -1,6 +1,6 @@
-<?php namespace Neuser\Cmsify\Controllers;
+<?php namespace Cmsify\Controllers;
 
-use Neuser\Category;
+use Cmsify\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

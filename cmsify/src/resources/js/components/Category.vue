@@ -3,7 +3,7 @@
     export default {
 
         props: {
-            'tree': {
+            'node': {
                 default: null
             }
         },
@@ -16,13 +16,11 @@
         },
 
         ready() {
-            console.log("huhu");
-            if (!this.tree) {
+            if (!this.node) {
 
                 this.$http.get('/cmsify/api/categories').then(function (response) {
                     for (var rootNode in response.data) {
-                        this.tree = response.data[rootNode];
-                        console.log(this.tree);
+                        this.node = response.data[rootNode];
                         break;
                     }
                 });
@@ -31,8 +29,8 @@
 
         computed: {
             isFolder() {
-                return this.tree && this.tree.children &&
-                        this.tree.children.length > 0
+                return this.node && this.node.children &&
+                        this.node.children.length > 0
             },
             isOpen() {
                 return this.open;
@@ -49,7 +47,7 @@
 
                 var vm = this;
                 var nodeName = 'new Node';
-                var nodeId = vm.tree ? vm.tree.id : null;
+                var nodeId = vm.node ? vm.node.id : null;
 
                 if (!nodeId) {
                     alert("cant add a node!");
@@ -66,11 +64,11 @@
                     this.open = true;
 
                     if (!vm.isFolder) {
-                        vm.tree.children.push([]);
+                        vm.node.children.push([]);
                         vm.open = true
                     }
 
-                    vm.tree.children.push({
+                    vm.node.children.push({
                         id: response.id,
                         parent_id: response.parent_id,
                         name: response.name
@@ -80,7 +78,7 @@
             updateChild(node) {
                 var vm = this;
                 this.$http.put(
-                        '/cmsify/api/categories' + vm.tree.id,
+                        '/cmsify/api/categories' + vm.node.id,
                         {
                             name: node.nodeName
                         },
@@ -92,10 +90,10 @@
             removeChild() {
                 var vm = this;
                 this.$http.delete(
-                        '/cmsify/api/categories' + vm.tree.id,
+                        '/cmsify/api/categories' + vm.node.id,
                         function (response) {
-                            vm.tree.children = null;
-                            vm.tree = null;
+                            vm.node.children = null;
+                            vm.node = null;
                         }
                 );
             }
@@ -106,15 +104,18 @@
 
 <template>
 
-    <li v-if="tree">
-        <span @click="toggle">
-            <cmsify-category-node :name="tree.name"></cmsify-category-node>
-        </span>
-        <button @click="removeChild">-</button>
-        <button @click="addChild">+</button>
-        <span v-if="isFolder" @click="toggle">[{{isOpen ? '-' : '+'}}]</span>
-        <ul v-show="open" v-if="isFolder">
-            <cmsify-category v-for="tree in tree.children" :tree="tree"></cmsify-category>
+    <li v-if="node">
+        <a v-if="isFolder" @click="toggle" style="cursor: pointer">
+            {{node.name}}
+        </a>
+        <a v-else v-link="{ name: 'pages', params : {categoryId : node.id}}">
+            {{node.name}}
+        </a>
+        <!--<button @click="removeChild">-</button>-->
+        <!--<button @click="addChild">+</button>-->
+        <!--<span v-if="isFolder" >[{{isOpen ? '-' : '+'}}]</span>-->
+        <ul v-if="isFolder && open">
+            <cmsify-category v-for="node in node.children" :node="node"></cmsify-category>
         </ul>
     </li>
 

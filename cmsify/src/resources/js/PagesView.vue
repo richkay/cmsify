@@ -1,9 +1,6 @@
 <script>
 
-    export default {
-
-
-    }
+    export default {}
 
 </script>
 
@@ -18,16 +15,17 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-3">
-                <a v-link="{ name: 'page_create' }">creage page</a>
-                <a v-link="{ name: 'page_edit', params: {id : 1} }">edit page</a>
+            <div class="col-xs-4">
                 <cmsify-category></cmsify-category>
             </div>
 
-            <div class="col-xs-9">
+            <div class="col-xs-8">
                 <router-view></router-view>
             </div>
         </div>
+
+        <hr>
+        <pre>{{ $route.params | json }}</pre>
 
     </div>
 </template>

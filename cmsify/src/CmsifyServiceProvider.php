@@ -1,13 +1,12 @@
-<?php
+<?php 
 
-namespace Neuser\Cmsify;
+namespace Cmsify;
 
 use Baum\Providers\BaumServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class CmsifyServiceProvider extends ServiceProvider
 {
-
     /**
      * Register the service provider.
      *
@@ -17,18 +16,10 @@ class CmsifyServiceProvider extends ServiceProvider
     {
         // TODO: Implement register() method
         $this->app->router->group(
-            ['namespace' => 'Neuser\Cmsify\Controllers', 'prefix' => 'cmsify']
+            ['namespace' => 'Cmsify\Controllers', 'prefix' => 'cmsify']
             , function ()
         {
-            \Route::get('/', function ()
-            {
-                return view('cmsify');
-            });
-
-            \Route::group(['prefix' => 'api'], function ()
-            {
-                \Route::resource('categories', 'CategoriesController');
-            });
+            require_once 'routes.php';
         });
 
         $this->app->register(BaumServiceProvider::class);

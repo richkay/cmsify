@@ -1,6 +1,6 @@
 <?php
 
-namespace Neuser;
+namespace Cmsify;
 
 use Baum\Node;
 
@@ -14,54 +14,20 @@ class Category extends Node {
    *
    * @var string
    */
-  protected $table = 'categories';
+  protected $table = 'cmsify_categories';
 
-  //////////////////////////////////////////////////////////////////////////////
+    public function posts()
+    {
+        return $this->morphedByMany(Post::class, 'categoryable', 'cmsify_categoryables', 'category_id');
+    }
 
-  //
-  // Below come the default values for Baum's own Nested Set implementation
-  // column names.
-  //
-  // You may uncomment and modify the following fields at your own will, provided
-  // they match *exactly* those provided in the migration.
-  //
-  // If you don't plan on modifying any of these you can safely remove them.
-  //
-
-  // /**
-  //  * Column name which stores reference to parent's node.
-  //  *
-  //  * @var string
-  //  */
-  // protected $parentColumn = 'parent_id';
-
-  // /**
-  //  * Column name for the left index.
-  //  *
-  //  * @var string
-  //  */
-  // protected $leftColumn = 'lft';
-
-  // /**
-  //  * Column name for the right index.
-  //  *
-  //  * @var string
-  //  */
-  // protected $rightColumn = 'rgt';
-
-  // /**
-  //  * Column name for the depth field.
-  //  *
-  //  * @var string
-  //  */
-  // protected $depthColumn = 'depth';
 
   // /**
   //  * Column to perform the default sorting
   //  *
   //  * @var string
   //  */
-  // protected $orderColumn = null;
+  // protected $orderColumn = ;
 
   // /**
   // * With Baum, all NestedSet-related fields are guarded from mass-assignment
