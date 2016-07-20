@@ -1,14 +1,59 @@
 <?php namespace Cmsify\Controllers;
 
+use Cmsify\Post;
+use Illuminate\Http\Request;
 use Cmsify\Jobs\PostCreateJob;
 use Cmsify\Jobs\PostDeleteJob;
-use Cmsify\Post;
 use Cmsify\Requests\PostCreateRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param $categoryId
+     * @return Response
+     */
+    public function index($categoryId = null)
+    {
+        $query = Post::query();
+
+        if ($categoryId)
+        {
+            $query->whereHas('categories', function ($q) use ($categoryId)
+            {
+                $q->where('category_id', $categoryId);
+            });
+        }
+
+        return $query->get()->all();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param PostCreateRequest $request
+     * @param $categoryId
+     * @return Response
+     */
+    public function store(PostCreateRequest $request, $categoryId = null)
+    {
+        if ($categoryId)
+        {
+            $category = Category::findOrFail($categoryId);
+        }
+
+        $post = $this->dispatch(new PostCreateJob($request));
+
+        if ($category)
+        {
+            $post->categories()->attach($category->id);
+        }
+
+        return $post;
+    }
 
     /**
      * Display a listing of the resource.
@@ -19,17 +64,6 @@ class PostsController extends Controller
     public function show($id)
     {
         return Post::findOrFail($id);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function store(PostCreateRequest $request)
-    {
-        return $this->dispatch(new PostCreateJob($request));
     }
 
     /**

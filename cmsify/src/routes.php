@@ -9,5 +9,5 @@
 {
     \Route::resource('categories', 'CategoriesController');
     \Route::resource('posts', 'PostsController');
-    \Route::resource('categories.posts', 'CategoriesPostsController');
+    \Route::resource('categories.posts', 'PostsController');
 });
