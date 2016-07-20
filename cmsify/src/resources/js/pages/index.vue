@@ -49,8 +49,8 @@
                         <tr v-for="post in posts">
                             <td>{{ post.id }}</td>
                             <td>{{ post.title }}</td>
-                            <td>{{ post.created_at | moment 'd.M.Y' }}</td>
-                            <td>{{ post.updated_at }}</td>
+                            <td>{{ post.created_at | moment 'YYYY-DD-MM h:mm' }}</td>
+                            <td>{{ post.updated_at | moment 'YYYY-DD-MM h:mm' }}</td>
                             <td>
                                 <a v-link="{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}"
                                    class="btn btn-primary"

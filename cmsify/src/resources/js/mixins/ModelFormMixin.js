@@ -26,7 +26,17 @@ export default {
                 this.errors = r.data;
             });
 
-        }
+
+        },
+
+        setState(state) {
+            this.model.state = state;
+        },
+
+        draftState() {
+            this.model.state = 'draft';
+        },
+
 
     }
 

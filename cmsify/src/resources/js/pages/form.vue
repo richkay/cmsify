@@ -6,10 +6,20 @@
 
         mixins: [modelFormMixin],
 
+        ready() {
+
+            if(parseInt(this.$route.params.id)) {
+                this.$http.get('/cmsify/api/posts/' + this.$route.params.id).then((r) => {
+                    this.model = r.data;
+                })
+            }
+
+        },
+
         methods: {
 
             getEndpoint() {
-                if (parseInt(this.$route.params.categoryId) > 0) {
+                if (parseInt(this.$route.params.categoryId)) {
                     return '/cmsify/api/categories/' + this.$route.params.categoryId + '/posts';
                 }
                 return '/cmsify/api/posts';
@@ -57,7 +67,8 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" @click="setState('draft')" class="btn btn-primary">Draft</button>
+                <button type="submit" @click="setState('published')" class="btn btn-success">Publish</button>
             </div>
         </div>
 

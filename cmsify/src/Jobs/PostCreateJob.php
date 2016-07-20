@@ -26,7 +26,7 @@ class PostCreateJob extends Job implements SelfHandling
     {
         $post = Post::create(array_merge(
             ['user_id' => $this->request->user()->id],
-            $this->request->only('title', 'text', 'keywords', 'description')
+            $this->request->only('state', 'title', 'text', 'keywords', 'description')
         ));
         return $post;
     }

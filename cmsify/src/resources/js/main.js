@@ -57,11 +57,11 @@ router.map({
             },
             '/create': {
                 name: 'page_create',
-                component: require('./pages/create.vue')
+                component: require('./pages/form.vue')
             },
             '/edit/:id': {
                 name: 'page_edit',
-                component: require('./pages/edit.vue')
+                component: require('./pages/form.vue')
             }
         },
     },

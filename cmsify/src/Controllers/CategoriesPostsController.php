@@ -56,7 +56,7 @@ class CategoriesPostsController extends Controller
     public function update(Request $request, $categoryId, $id)
     {
         $post = Post::findOrFail($id);
-        $post->fill($request->only('title', 'text', 'keywords', 'description'));
+        $post->fill($request->only('state', 'title', 'text', 'keywords', 'description'));
         $post->save();
 
         return $post;
