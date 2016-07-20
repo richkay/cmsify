@@ -1,4 +1,4 @@
-<script xmlns="http://www.w3.org/1999/html">
+<script>
 
     import modelFormMixin from '../mixins/ModelFormMixin';
     import vSelect from 'vue-select';
@@ -20,6 +20,11 @@
 
         ready() {
 
+            this.tags = [];
+            this.model.tags = [];
+            this.categories = [];
+            this.model.categories = [];
+
             if (parseInt(this.$route.params.id)) {
                 this.$http.get('/cmsify/api/posts/' + this.$route.params.id).then(r => {
                     this.model = r.data;
@@ -27,9 +32,6 @@
                     this.categories = r.data.categories;
                 });
             } else {
-
-                this.model.tags = [];
-                this.model.categories = [];
 
                 if (parseInt(this.$route.params.categoryId)) {
                     this.model.categories = [{
@@ -56,7 +58,7 @@
 
             getTags(search, loading) {
                 loading(true)
-                this.$http.get('/cmsify/api/tags/search', {q: search}).then(r => {
+                this.$http.get('/cmsify/api/tags', {q: search}).then(r => {
                     this.tags = r.data;
                     loading(false)
                 })
@@ -64,7 +66,7 @@
 
             getCategories(search, loading) {
                 loading(true)
-                this.$http.get('/cmsify/api/categories/search', {q: search}).then(r => {
+                this.$http.get('/cmsify/api/categories', {q: search}).then(r => {
                     this.categories = r.data;
                     loading(false)
                 })
@@ -108,7 +110,7 @@
                     <v-select multiple
                               :debounce="250"
                               :on-search="getTags"
-                              :options="tags"
+                              :options.sync="tags"
                               :value.sync="model.tags"
                               placeholder="Tags..."
                               label="name"
@@ -121,7 +123,7 @@
                     <v-select multiple
                               :debounce="250"
                               :on-search="getCategories"
-                              :options="categories"
+                              :options.sync="categories"
                               :value.sync="model.categories"
                               placeholder="Categories..."
                               label="name"

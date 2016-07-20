@@ -7,11 +7,11 @@
 
 \Route::group(['prefix' => 'api'], function ()
 {
-    \Route::resource('categories/search', 'CategoriesController@search');
     \Route::resource('categories/hierarchy', 'CategoriesController@hierarchy');
     \Route::resource('categories', 'CategoriesController');
+
     \Route::resource('posts', 'PostsController');
-    \Route::resource('categories.posts', 'PostsController');
-    \Route::get('tags/search', 'TagsController@search');
+    \Route::get('categories/{categoryId}/posts', 'PostsController@index');
+
     \Route::resource('tags', 'TagsController');
 });

@@ -10,11 +10,21 @@
 
         ready() {
 
-            this.$http.get('/cmsify/api/categories/' + this.$route.params.categoryId + '/posts').then(function (response) {
-                this.posts = response.data;
-            }).catch(function (response) {
-                console.log(response);
-            })
+            this.$http.get('/cmsify/api/categories/' + this.$route.params.categoryId + '/posts').then(r => {
+                this.posts = r.data;
+            });
+        },
+
+        methods: {
+
+            destroy(post) {
+
+                this.$http.delete('/cmsify/api/posts/' + post.id).then(r => {
+                    this.posts.$remove(post);
+                });
+
+            }
+
         }
 
     }
@@ -55,6 +65,7 @@
                                 <a v-link="{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}"
                                    class="btn btn-primary"
                                 >Edit</a>
+                                <button @click="destroy(post)" class="btn btn-danger"></button>
                             </td>
                         </tr>
                         </tbody>

@@ -7,23 +7,13 @@ use App\Http\Controllers\Controller;
 class CategoriesController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    public function index(Request $request)
     {
+        if ( ! $request->has('q'))
+        {
+            return Category::get()->all();
+        }
 
-    }
-
-    public function show($id)
-    {
-        return Category::findOrFail($id);
-    }
-
-    public function search(Request $request)
-    {
         return Category::where('name', 'like', trim($request->get('q')) . '%')->get()->map(function ($item)
         {
             return [
@@ -31,6 +21,11 @@ class CategoriesController extends Controller
                 'name' => $item->name,
             ];
         })->all();
+    }
+
+    public function show($id)
+    {
+        return Category::findOrFail($id);
     }
 
     public function hierarchy()

@@ -6,18 +6,12 @@ use App\Http\Controllers\Controller;
 
 class TagsController extends Controller
 {
-
-    /**
-     * Display a listing of the resource.
-     *
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return Tag::get()->all();
-    }
-
-    public function search(Request $request)
-    {
+        if ( ! $request->has('q'))
+        {
+            return Tag::get()->all();
+        }
 
         if (substr($request->get('q'), -1) == ' ')
         {
