@@ -1,7 +1,5 @@
 <?php namespace Cmsify\Controllers;
 
-use Cmsify\Category;
-use Cmsify\Comment;
 use Cmsify\Jobs\PostCreateJob;
 use Cmsify\Jobs\PostDeleteJob;
 use Cmsify\Post;
@@ -9,41 +7,29 @@ use Cmsify\Requests\PostCreateRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoriesPostsController extends Controller
+class PostsController extends Controller
 {
 
     /**
      * Display a listing of the resource.
      *
-     * @param $categoryId
+     * @param $id
      * @return Response
      */
-    public function index($categoryId)
+    public function show($id)
     {
-        $comment = factory(Comment::class)->create();
-        $post = $comment->post;
-        $post->categories()->attach($categoryId);
-
-        return Post::whereHas('categories', function($q) use ($categoryId) {
-            $q->where('category_id', $categoryId);
-        })->get()->all();
+        return Post::findOrFail($id);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param PostCreateRequest $request
-     * @param $categoryId
+     * @param Request $request
      * @return Response
      */
-    public function store(PostCreateRequest $request, $categoryId)
+    public function store(PostCreateRequest $request)
     {
-        $category = Category::findOrFail($categoryId);
-
-        $post = $this->dispatch(new PostCreateJob($request));
-        $post->categories()->attach($categoryId);
-
-        return $post;
+        return $this->dispatch(new PostCreateJob($request));
     }
 
     /**
@@ -53,7 +39,7 @@ class CategoriesPostsController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update(Request $request, $categoryId, $id)
+    public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
         $post->fill($request->only('title', 'text', 'keywords', 'description'));

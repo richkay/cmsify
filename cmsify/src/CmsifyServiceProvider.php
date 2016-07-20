@@ -16,7 +16,7 @@ class CmsifyServiceProvider extends ServiceProvider
     {
         // TODO: Implement register() method
         $this->app->router->group(
-            ['namespace' => 'Cmsify\Controllers', 'prefix' => 'cmsify']
+            ['namespace' => 'Cmsify\Controllers', 'prefix' => 'cmsify', 'middleware' => 'auth']
             , function ()
         {
             require_once 'routes.php';
