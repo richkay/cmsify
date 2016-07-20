@@ -32,8 +32,14 @@ class PostUpdateJob extends Job implements SelfHandling
         $post = Post::findOrFail($this->id);
         $post->fill($this->request->only('state', 'title', 'text', 'keywords', 'description'));
         $post->save();
-        $post->tags()->sync(array_pluck($this->request->get('tags'), 'id'));
-        $post->categories()->sync(array_pluck($this->request->get('categories'), 'id'));
+        if (is_array($this->request->get('tags')))
+        {
+            $post->tags()->sync(array_pluck($this->request->get('tags'), 'id'));
+        }
+        if (is_array($this->request->get('categories')))
+        {
+            $post->categories()->sync(array_pluck($this->request->get('categories', []), 'id'));
+        }
 
         return $post;
     }

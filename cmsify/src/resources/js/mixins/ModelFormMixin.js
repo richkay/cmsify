@@ -21,12 +21,17 @@ export default {
             }
 
             this.$http[method](endpoint, this.model).then(r => {
-                this.model = r.data;
+                this.afterSave(r)
             }).catch((r) => {
                 this.errors = r.data;
             });
 
 
+        },
+
+        afterSave(r)
+        {
+            this.model = r.data;
         },
 
         setState(state) {

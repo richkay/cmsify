@@ -39,9 +39,9 @@ class PostsController extends Controller
      * @param PostCreateRequest $request
      * @return Response
      */
-    public function store(PostCreateRequest $request)
+    public function store(PostsTransformer $postsTransformer, PostCreateRequest $request)
     {
-        return $this->dispatch(new PostCreateJob($request));
+        return $postsTransformer->transform($this->dispatch(new PostCreateJob($request)));
     }
 
     /**

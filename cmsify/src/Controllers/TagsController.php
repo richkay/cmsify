@@ -21,20 +21,33 @@ class TagsController extends Controller
 
         if (substr($request->get('q'), -1) == ' ')
         {
-            Tag::create([
-                'user_id' => $request->user()->id,
+            $tag = Tag::firstOrNew([
                 'name' => trim($request->get('q'))
             ]);
+            if ( ! $tag->id)
+            {
+                $tag->user_id = $request->user()->id;
+                $tag->save();
+            }
             sleep(0.5);
+
+            $tag->name = $request->get('q');
         }
 
-        return Tag::where('name', 'like', trim($request->get('q')) . '%')->get()->map(function ($item)
+        $tags = Tag::where('name', 'like', trim($request->get('q')) . '%')->get()->map(function ($item)
         {
             return [
                 'id' => $item->id,
                 'name' => $item->name,
             ];
         })->all();
+
+        if (isset($tag))
+        {
+            array_push($tags, $tag);
+        }
+
+        return $tags;
     }
 
     /**

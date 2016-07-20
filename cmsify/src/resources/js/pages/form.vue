@@ -27,21 +27,14 @@
                     this.categories = r.data.categories;
                 });
             } else {
+
                 this.model.tags = [];
+                this.model.categories = [];
 
                 if (parseInt(this.$route.params.categoryId)) {
-                    this.$http.get('/cmsify/api/categories/' + this.$route.params.categoryId).then(r => {
-                        this.model.categories = [{
-                            id: r.data.id,
-                            name: r.data.name
-                        }];
-                        this.categories.push({
-                            id: r.data.id,
-                            name: r.data.name
-                        });
-                    });
-                } else {
-                    this.model.categories = [];
+                    this.model.categories = [{
+                        id: this.$route.params.categoryId
+                    }];
                 }
 
             }
@@ -52,6 +45,13 @@
 
             getEndpoint() {
                 return '/cmsify/api/posts';
+            },
+
+            afterSave(r)
+            {
+                this.model = r.data;
+                this.tags = r.data.tags;
+                this.categories = r.data.categories;
             },
 
             getTags(search, loading) {
@@ -116,7 +116,7 @@
                     </v-select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" v-if="model.id">
                     <label>Categories</label>
                     <v-select multiple
                               :debounce="250"
