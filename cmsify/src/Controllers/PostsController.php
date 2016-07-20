@@ -1,5 +1,6 @@
 <?php namespace Cmsify\Controllers;
 
+use Cmsify\Category;
 use Cmsify\Post;
 use Illuminate\Http\Request;
 use Cmsify\Jobs\PostCreateJob;

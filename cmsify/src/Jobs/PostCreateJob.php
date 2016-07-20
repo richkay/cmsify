@@ -28,6 +28,7 @@ class PostCreateJob extends Job implements SelfHandling
             ['user_id' => $this->request->user()->id],
             $this->request->only('state', 'title', 'text', 'keywords', 'description')
         ));
+        $post->tags()->sync(array_pluck($this->request->get('tags'), 'id'));
         return $post;
     }
 }

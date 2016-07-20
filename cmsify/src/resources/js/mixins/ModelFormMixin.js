@@ -20,7 +20,7 @@ export default {
                 var method = 'post';
             }
 
-            this.$http[method](endpoint, this.model).then((r) => {
+            this.$http[method](endpoint, this.model).then(r => {
                 this.model = r.data;
             }).catch((r) => {
                 this.errors = r.data;

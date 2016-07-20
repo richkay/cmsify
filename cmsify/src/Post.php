@@ -17,6 +17,11 @@ class Post extends Model
         return $this->morphToMany(Category::class, 'categoryable', 'cmsify_categoryables', 'categoryable_id');
     }
 
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable', 'cmsify_taggables', 'taggable_id');
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
