@@ -18,7 +18,7 @@
         ready() {
             if (!this.node) {
 
-                this.$http.get('/cmsify/api/categories').then(function (response) {
+                this.$http.get('/cmsify/api/categories/hierarchy').then(function (response) {
                     for (var rootNode in response.data) {
                         this.node = response.data[rootNode];
                         break;

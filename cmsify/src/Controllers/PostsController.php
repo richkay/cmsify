@@ -1,12 +1,13 @@
 <?php namespace Cmsify\Controllers;
 
-use Cmsify\Category;
 use Cmsify\Post;
 use Illuminate\Http\Request;
+use Cmsify\Jobs\PostUpdateJob;
 use Cmsify\Jobs\PostCreateJob;
 use Cmsify\Jobs\PostDeleteJob;
-use Cmsify\Requests\PostCreateRequest;
 use App\Http\Controllers\Controller;
+use Cmsify\Requests\PostCreateRequest;
+use Cmsify\Controllers\Transformers\PostsTransformer;
 
 class PostsController extends Controller
 {
@@ -36,61 +37,47 @@ class PostsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param PostCreateRequest $request
-     * @param $categoryId
      * @return Response
      */
-    public function store(PostCreateRequest $request, $categoryId = null)
+    public function store(PostCreateRequest $request)
     {
-        if ($categoryId)
-        {
-            $category = Category::findOrFail($categoryId);
-        }
-
-        $post = $this->dispatch(new PostCreateJob($request));
-
-        if ($category)
-        {
-            $post->categories()->attach($category->id);
-        }
-
-        return $post;
+        return $this->dispatch(new PostCreateJob($request));
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param PostsTransformer $postsTransformer
      * @param $id
      * @return Response
      */
-    public function show($id)
+    public function show(PostsTransformer $postsTransformer, $id)
     {
-        return Post::findOrFail($id);
+        return $postsTransformer->transform(Post::findOrFail($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
+     * @param PostsTransformer $postsTransformer
      * @param Request $request
      * @param  int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(PostsTransformer $postsTransformer, Request $request, $id)
     {
-        $post = Post::findOrFail($id);
-        $post->fill($request->only('state', 'title', 'text', 'keywords', 'description'));
-        $post->save();
-
-        return $post;
+        return $postsTransformer->transform(
+            $this->dispatch(new PostUpdateJob($request, $id))
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $categoryId
      * @param  int $id
      * @return Response
      */
-    public function destroy($categoryId, $id)
+    public function destroy($id)
     {
         return $this->dispatch(new PostDeleteJob($id));
     }

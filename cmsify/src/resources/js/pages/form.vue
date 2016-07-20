@@ -13,7 +13,8 @@
 
         data() {
             return {
-                tags: []
+                tags: [],
+                categories: [],
             }
         },
 
@@ -22,10 +23,27 @@
             if (parseInt(this.$route.params.id)) {
                 this.$http.get('/cmsify/api/posts/' + this.$route.params.id).then(r => {
                     this.model = r.data;
+                    this.tags = r.data.tags;
+                    this.categories = r.data.categories;
                 });
             } else {
                 this.model.tags = [];
-                this.model.categories = [];
+
+                if (parseInt(this.$route.params.categoryId)) {
+                    this.$http.get('/cmsify/api/categories/' + this.$route.params.categoryId).then(r => {
+                        this.model.categories = [{
+                            id: r.data.id,
+                            name: r.data.name
+                        }];
+                        this.categories.push({
+                            id: r.data.id,
+                            name: r.data.name
+                        });
+                    });
+                } else {
+                    this.model.categories = [];
+                }
+
             }
 
         },
@@ -33,16 +51,21 @@
         methods: {
 
             getEndpoint() {
-                if (parseInt(this.$route.params.categoryId)) {
-                    return '/cmsify/api/categories/' + this.$route.params.categoryId + '/posts';
-                }
                 return '/cmsify/api/posts';
             },
 
-            getOptions(search, loading) {
+            getTags(search, loading) {
                 loading(true)
-                this.$http.get('/cmsify/api/tags/search', { q: search }).then(r => {
+                this.$http.get('/cmsify/api/tags/search', {q: search}).then(r => {
                     this.tags = r.data;
+                    loading(false)
+                })
+            },
+
+            getCategories(search, loading) {
+                loading(true)
+                this.$http.get('/cmsify/api/categories/search', {q: search}).then(r => {
+                    this.categories = r.data;
                     loading(false)
                 })
             }
@@ -84,10 +107,23 @@
                     <label>Tags</label>
                     <v-select multiple
                               :debounce="250"
-                              :on-search="getOptions"
+                              :on-search="getTags"
                               :options="tags"
                               :value.sync="model.tags"
                               placeholder="Tags..."
+                              label="name"
+                    >
+                    </v-select>
+                </div>
+
+                <div class="form-group">
+                    <label>Categories</label>
+                    <v-select multiple
+                              :debounce="250"
+                              :on-search="getCategories"
+                              :options="categories"
+                              :value.sync="model.categories"
+                              placeholder="Categories..."
                               label="name"
                     >
                     </v-select>

@@ -14,6 +14,27 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+
+    }
+
+    public function show($id)
+    {
+        return Category::findOrFail($id);
+    }
+
+    public function search(Request $request)
+    {
+        return Category::where('name', 'like', trim($request->get('q')) . '%')->get()->map(function ($item)
+        {
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+            ];
+        })->all();
+    }
+
+    public function hierarchy()
+    {
         $rootNode = Category::roots()->first();
         if ( ! $rootNode)
         {

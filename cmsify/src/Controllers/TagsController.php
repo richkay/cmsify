@@ -23,12 +23,12 @@ class TagsController extends Controller
         {
             Tag::create([
                 'user_id' => $request->user()->id,
-                'name' => $request->get('q')
+                'name' => trim($request->get('q'))
             ]);
             sleep(0.5);
         }
 
-        return Tag::where('name', 'like', $request->get('q') . '%')->get()->map(function ($item)
+        return Tag::where('name', 'like', trim($request->get('q')) . '%')->get()->map(function ($item)
         {
             return [
                 'id' => $item->id,
