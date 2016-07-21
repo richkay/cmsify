@@ -17,6 +17,10 @@ class CmsifyServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->publishes([
+            __DIR__.'/database/migrations/' => database_path('migrations')
+        ], 'migrations');
+
+        $this->publishes([
             __DIR__ . '/assets/js' => public_path('vendor/cmsify'),
             __DIR__ . '/assets/css' => public_path('vendor/cmsify'),
             // !TODO fontawesome: howto specify the fonts url
