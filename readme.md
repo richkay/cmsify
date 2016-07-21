@@ -2,13 +2,18 @@
 
 `composer require neuser/cmsify --dev`
 
-**add ServiceProvider to config/app.php**
+**Add ServiceProvider to config/app.php**
 
 `Cmsify\CmsifyServiceProvider::class`
 
-`php artisan vendor:publish neuser/cmsify`
+**Run Artisan Command**
 
-`php artisan migrate`
+```
+php artisan vendor:publish neuser/cmsify
+php artisan migrate
+```
+
+Make sure your are logged in or auth/login is working and than try:
 
 `http://local.app/cmsify`
 
