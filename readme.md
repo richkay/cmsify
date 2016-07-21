@@ -1,6 +1,6 @@
 **Installation**
 
-`composer require neuser/cmsify --dev`
+`composer require neuser/cmsify "dev-master"`
 
 **Add ServiceProvider to config/app.php**
 
