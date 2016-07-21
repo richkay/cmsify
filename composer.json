@@ -15,7 +15,7 @@
              "Cmsify\\": "src/"
         },
 	    "files": [
-		    "tests/TestCase.php"
+		    "tests/CmsifyTestCase.php"
 	    ]
     },
     "require-dev": {
