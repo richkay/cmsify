@@ -118,17 +118,20 @@
                     </v-select>
                 </div>
 
-                <div class="form-group" v-if="model.id">
-                    <label>Categories</label>
-                    <v-select multiple
-                              :debounce="250"
-                              :on-search="getCategories"
-                              :options.sync="categories"
-                              :value.sync="model.categories"
-                              placeholder="Categories..."
-                              label="name"
-                    >
-                    </v-select>
+                <div class="form-group" v-bind:class="{ 'has-error' : errors.categories }">
+                    <span v-if="errors.categories" class="form-input-error">{{ errors.categories }}</span>
+                    <div v-if="model.id">
+                        <label>Categories</label>
+                        <v-select multiple
+                                  :debounce="250"
+                                  :on-search="getCategories"
+                                  :options.sync="categories"
+                                  :value.sync="model.categories"
+                                  placeholder="Categories..."
+                                  label="name"
+                        >
+                        </v-select>
+                    </div>
                 </div>
 
                 <div v-bind:class="{ 'has-error' : errors.text }" class="form-group">
@@ -140,3 +143,11 @@
 
     </form>
 </template>
+
+<style>
+
+    .form-input-error {
+        color: red;
+    }
+
+</style>

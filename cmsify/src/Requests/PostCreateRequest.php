@@ -23,10 +23,10 @@ class PostCreateRequest extends Request
      */
     public function rules()
     {
-        // !TODO: PostRequest Validations (categories:min:1 with exists!!!)
         return [
             'title' => 'required|min:3',
-            'text' => 'required'
+            'text' => 'required',
+            'categories' => 'required'
         ];
     }
 }

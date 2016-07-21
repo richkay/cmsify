@@ -36,6 +36,7 @@ class PostsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param PostsTransformer $postsTransformer
      * @param PostCreateRequest $request
      * @return Response
      */

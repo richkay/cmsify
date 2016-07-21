@@ -35,10 +35,15 @@
     <div>
 
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
                 <a v-link="{name : 'page_create', params : {categoryId : $route.params.categoryId }}"
                    class="btn btn-primary"
                 >Create Post</a>
+                <span v-if="parseInt($route.params.categoryId)">
+                    <a v-link="{name : 'page_create', params : {categoryId : $route.params.categoryId }}"
+                       class="btn btn-default"
+                    >Create Category</a>
+                </span>
             </div>
         </div>
 
@@ -61,11 +66,12 @@
                             <td>{{ post.title }}</td>
                             <td>{{ post.created_at | moment 'YYYY-DD-MM h:mm' }}</td>
                             <td>{{ post.updated_at | moment 'YYYY-DD-MM h:mm' }}</td>
-                            <td>
+                            <td class="text-right">
                                 <a v-link="{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}"
                                    class="btn btn-primary"
-                                >Edit</a>
-                                <button @click="destroy(post)" class="btn btn-danger"></button>
+                                ><i class="fa fa-edit"></i> </a>
+                                <button @click="destroy(post)" class="btn btn-danger"><i class="fa fa-remove"></i>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -73,8 +79,6 @@
                 </div>
             </div>
         </div>
-
-
 
     </div>
 
