@@ -1,7 +1,7 @@
 {
     "name": "neuser/cmsify",
-    "description": "",
-    "keywords": [],
+    "description": "Laravel based simple categorizeable Content Mangement System",
+    "keywords": ["Laravel", "Vuejs", "twitter Bootstrap", "CMS", "Nested Sets"],
     "license": "MIT",
     "authors": [
         {
