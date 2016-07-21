@@ -2,7 +2,7 @@
 
 \Route::get('/', function ()
 {
-    return view('cmsify');
+    return view('cmsify::cmsify');
 });
 
 \Route::group(['prefix' => 'api'], function ()

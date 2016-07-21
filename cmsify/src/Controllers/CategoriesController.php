@@ -49,11 +49,11 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $newNode = Category::findOrFail($request->get('id'))->children()->create([
+        $node = Category::findOrFail($request->get('id'))->children()->create([
             'name' => $request->get('name', 'new Node')
         ]);
 
-        return $newNode;
+        return $node;
 
     }
 
@@ -66,11 +66,11 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $node = Category::findOrFail($id)->update([
-            'name' => $request->get('name')
-        ]);
+        $node = Category::findOrFail($id);
+        $node->name = trim($request->get('name'));
+        $node->save();
 
-        return \Response::json($node);
+        return $node;
     }
 
     /**

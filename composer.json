@@ -1,0 +1,33 @@
+{
+    "name": "neuser/cmsify",
+    "description": "",
+    "keywords": [],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stefan Neuser",
+            "email": "mail@stefan-neuser.eu"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+             "Cmsify\\": "src/"
+        },
+	    "files": [
+		    "tests/TestCase.php"
+	    ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.4",
+        "fzaninotto/Faker": "^1.6"
+    },
+    "require": {
+        "paquettg/php-html-parser": "^1.7",
+        "illuminate/support": "^5.1"
+    },
+	"config": {
+		"bin-dir": "bin"
+	}
+
+}

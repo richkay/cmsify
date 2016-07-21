@@ -15,13 +15,13 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-4 col-md-2">
-                <div style="border-left:1px solid #ccc;">
+            <div class="col-xs-4 col-md-3">
+                <div>
                     <cmsify-category></cmsify-category>
                 </div>
             </div>
 
-            <div class="col-xs-8 col-md-10">
+            <div class="col-xs-8 col-md-9">
                 <router-view></router-view>
             </div>
         </div>

@@ -11,13 +11,15 @@
         data() {
             return {
                 open: true,
-                enableAddChildButton: true
+                mode: 'show',
+                newNodeName: null,
             }
         },
 
         ready() {
-            if (!this.node) {
 
+            if (!this.node) // if there is no node than fetch first (root node)
+            {
                 this.$http.get('/cmsify/api/categories/hierarchy').then(function (response) {
                     for (var rootNode in response.data) {
                         this.node = response.data[rootNode];
@@ -38,64 +40,82 @@
         },
 
         methods: {
+            clicknode() {
+
+                if (this.isFolder) {
+                    this.toggle();
+                }
+
+                this.$router.go({
+                    name: 'pages',
+                    params: {categoryId: this.node.id}
+                });
+
+            },
             toggle() {
                 if (this.isFolder) {
                     this.open = !this.open
                 }
             },
-            addChild() {
+            isCreateMode() {
+                return this.mode == 'create';
+            },
+            create() {
+                this.mode = 'create';
+            },
+            store() {
 
-                var vm = this;
-                var nodeName = 'new Node';
-                var nodeId = vm.node ? vm.node.id : null;
+                var parentNodeId = this.node ? this.node.id : null;
 
-                if (!nodeId) {
+                if (!parentNodeId) {
                     alert("cant add a node!");
                     return;
                 }
 
                 var data = {
-                    id: nodeId,
-                    name: nodeName
+                    id: parentNodeId,
+                    name: this.newNodeName
                 };
 
-                vm.$http.post('/cmsify/api/categories', data).then(function (response) {
-                    this.enableAddChildButton = true;
+                this.$http.post('/cmsify/api/categories', data).then(r => {
                     this.open = true;
-
-                    if (!vm.isFolder) {
-                        vm.node.children.push([]);
-                        vm.open = true
+                    if (!this.node.children) {
+                        this.node.children = [];
                     }
-
-                    vm.node.children.push({
-                        id: response.id,
-                        parent_id: response.parent_id,
-                        name: response.name
-                    });
+                    this.node.children.push(r.data);
+                    this.newNodeName = null;
+                    this.mode = 'show';
                 });
+
             },
-            updateChild(node) {
-                var vm = this;
-                this.$http.put(
-                        '/cmsify/api/categories' + vm.node.id,
-                        {
-                            name: node.nodeName
-                        },
-                        function (response) {
-                            this.open = true;
-                        }
-                );
+            isEditMode() {
+                return this.mode == 'edit';
             },
-            removeChild() {
-                var vm = this;
-                this.$http.delete(
-                        '/cmsify/api/categories' + vm.node.id,
-                        function (response) {
-                            vm.node.children = null;
-                            vm.node = null;
-                        }
-                );
+            edit() {
+                this.mode = 'edit';
+            },
+            update() {
+                this.$http.put('/cmsify/api/categories/' + this.node.id, {name: this.node.name}).then(r => {
+                    this.node = r.data;
+                    this.open = true;
+                });
+                this.mode = 'show';
+            },
+            remove() {
+                this.$http.delete('/cmsify/api/categories/' + this.node.id).then(r => {
+                    this.$dispatch('category-child-removed', {node : this.node});
+                    this.node.children = null;
+                    this.node = null;
+                });
+            }
+        },
+
+        events: {
+            'category-child-removed': function(msg) {
+                if(this.node.id == msg.node.parent_id) {
+                    console.log(this.node)
+                    this.node.children.$remove(msg.node);
+                }
             }
         }
     }
@@ -106,19 +126,35 @@
 
     <ul>
         <li v-if="node">
-            <a v-if="isFolder" @click="toggle" style="cursor: pointer">
-                {{node.name}}
+            <a @click="clicknode" style="cursor: pointer">
+                <form v-if="isEditMode()" @submit.prevent="update">
+                    <input type="text" v-model="node.name"/>
+                </form>
+                <span v-else>{{node.name}}</span>
             </a>
-            <a v-else v-link="{ name: 'pages', params : {categoryId : node.id}}">
-                {{node.name}}
-            </a>
-            <i style="cursor: pointer" class="fa fa-edit"></i>
-            <i style="cursor: pointer" class="fa fa-plus"></i>
-            <i v-if="!isFolder" style="cursor: pointer" class="fa fa-remove"></i>
+            <i style="cursor: pointer"
+               class="fa fa-edit"
+               @click="edit"
+            ></i>
+            <i style="cursor: pointer"
+               class="fa fa-plus"
+               @click="create"
+            ></i>
+            <i v-if="!isFolder"
+               style="cursor: pointer"
+               class="fa fa-remove"
+               @click="remove"
+            ></i>
             <!--<button @click="removeChild">-</button>-->
             <!--<button @click="addChild">+</button>-->
             <!--<span v-if="isFolder" >[{{isOpen ? '-' : '+'}}]</span>-->
-            <cmsify-category v-if="isFolder && open" v-for="node in node.children" :node="node"></cmsify-category>
+
+            <form v-if="isCreateMode()" @submit.prevent="store">
+                <input type="text" v-model="newNodeName"/>
+            </form>
+            <span v-else>
+                <cmsify-category v-if="isOpen && isFolder" v-for="node in node.children" :node="node"></cmsify-category>
+             </span>
         </li>
     </ul>
 
@@ -127,10 +163,11 @@
 <style>
 
     ul {
-        font-size: 1.1em;
+        font-size: 15px;
         list-style: none;
-        margin: 0;
-        padding: 5px;
+        padding: 3px;
+        border-left: 1px solid #ccc;
+        padding-left: 10px;
     }
 
 </style>
