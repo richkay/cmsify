@@ -23,8 +23,9 @@
         "fzaninotto/Faker": "^1.6"
     },
     "require": {
-        "paquettg/php-html-parser": "^1.7",
-        "illuminate/support": "^5.1"
+	    "php": ">=5.5.9",
+	    "laravel/framework": "5.1.*",
+	    "baum/baum": "^1.1"
     },
 	"config": {
 		"bin-dir": "bin"
