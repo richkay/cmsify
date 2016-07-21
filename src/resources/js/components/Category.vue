@@ -165,9 +165,14 @@
     ul {
         font-size: 15px;
         list-style: none;
-        padding: 3px;
+        padding-right: 3px;
         border-left: 1px solid #ccc;
         padding-left: 10px;
+    }
+
+    ul > li {
+        padding:0px;
+        margin:0px;
     }
 
 </style>

@@ -25,12 +25,12 @@ class Category extends Node
     }
 
 
-    // /**
-    //  * Column to perform the default sorting
-    //  *
-    //  * @var string
-    //  */
-    // protected $orderColumn = ;
+     /**
+      * Column to perform the default sorting
+      *
+      * @var string
+      */
+     protected $orderColumn = 'id';
 
     // /**
     // * With Baum, all NestedSet-related fields are guarded from mass-assignment
