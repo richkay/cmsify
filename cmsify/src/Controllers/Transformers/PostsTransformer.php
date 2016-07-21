@@ -9,6 +9,8 @@ class PostsTransformer extends AbstractTransformer
             'id' => $item['id'],
             'title' => $item['title'],
             'text' => $item['text'],
+            'keywords' => $item['keywords'],
+            'description' => $item['description'],
             'tags' => $item->tags,
             'categories' => $item->categories,
         ];

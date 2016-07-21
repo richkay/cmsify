@@ -104,19 +104,33 @@
 
 <template>
 
-    <li v-if="node">
-        <a v-if="isFolder" @click="toggle" style="cursor: pointer">
-            {{node.name}}
-        </a>
-        <a v-else v-link="{ name: 'pages', params : {categoryId : node.id}}">
-            {{node.name}}
-        </a>
-        <!--<button @click="removeChild">-</button>-->
-        <!--<button @click="addChild">+</button>-->
-        <!--<span v-if="isFolder" >[{{isOpen ? '-' : '+'}}]</span>-->
-        <ul v-if="isFolder && open">
-            <cmsify-category v-for="node in node.children" :node="node"></cmsify-category>
-        </ul>
-    </li>
+    <ul>
+        <li v-if="node">
+            <a v-if="isFolder" @click="toggle" style="cursor: pointer">
+                {{node.name}}
+            </a>
+            <a v-else v-link="{ name: 'pages', params : {categoryId : node.id}}">
+                {{node.name}}
+            </a>
+            <i style="cursor: pointer" class="fa fa-edit"></i>
+            <i style="cursor: pointer" class="fa fa-plus"></i>
+            <i v-if="!isFolder" style="cursor: pointer" class="fa fa-remove"></i>
+            <!--<button @click="removeChild">-</button>-->
+            <!--<button @click="addChild">+</button>-->
+            <!--<span v-if="isFolder" >[{{isOpen ? '-' : '+'}}]</span>-->
+            <cmsify-category v-if="isFolder && open" v-for="node in node.children" :node="node"></cmsify-category>
+        </li>
+    </ul>
 
 </template>
+
+<style>
+
+    ul {
+        font-size: 1.1em;
+        list-style: none;
+        margin: 0;
+        padding: 5px;
+    }
+
+</style>

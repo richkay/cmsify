@@ -16,7 +16,9 @@
 
         <div class="row">
             <div class="col-xs-4 col-md-2">
-                <cmsify-category></cmsify-category>
+                <div style="border-left:1px solid #ccc;">
+                    <cmsify-category></cmsify-category>
+                </div>
             </div>
 
             <div class="col-xs-8 col-md-10">

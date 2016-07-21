@@ -61,11 +61,11 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param PostsTransformer $postsTransformer
-     * @param Request $request
+     * @param PostCreateRequest $request
      * @param  int $id
      * @return Response
      */
-    public function update(PostsTransformer $postsTransformer, Request $request, $id)
+    public function update(PostsTransformer $postsTransformer, PostCreateRequest $request, $id)
     {
         return $postsTransformer->transform(
             $this->dispatch(new PostUpdateJob($request, $id))
