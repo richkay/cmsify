@@ -1,6 +1,6 @@
 <?php
 
-abstract class TestCase extends PHPUnit_Framework_TestCase
+abstract class CmsifyTestCase extends PHPUnit_Framework_TestCase
 {
     
 }
