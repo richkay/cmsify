@@ -20,6 +20,11 @@ class ImagesController extends Controller
 
         $file = sprintf("%s/%s", $this->getTargetStoragePath($context), $filename);
 
+        if ( ! \File::exists($file))
+        {
+            return response($file . ' does not exist', Response::HTTP_NOT_FOUND);
+        }
+
         return \File::get($file);
     }
 
@@ -48,7 +53,7 @@ class ImagesController extends Controller
             \File::makeDirectory($targetPath, 493, true);
         }
 
-        if ( \File::exists($targetFile))
+        if (\File::exists($targetFile))
         {
             return sprintf('/cmsify/images/%s/original/%s', $context, $targetFilename);
         }
