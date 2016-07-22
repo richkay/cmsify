@@ -25,7 +25,8 @@
     "require": {
 	    "php": ">=5.5.9",
 	    "laravel/framework": "5.1.*",
-	    "baum/baum": "^1.1"
+	    "baum/baum": "^1.1",
+	    "intervention/image": "^2.3"
     },
 	"config": {
 		"bin-dir": "bin"

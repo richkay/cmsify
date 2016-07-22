@@ -14,4 +14,8 @@
     \Route::get('categories/{categoryId}/posts', 'PostsController@index');
 
     \Route::resource('tags', 'TagsController');
+
+    \Route::post('images', 'ImagesController@store');
 });
+\Route::get('images/{context}/{version}/{filename}', 'ImagesController@show');
+

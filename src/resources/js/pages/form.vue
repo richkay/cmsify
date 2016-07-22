@@ -116,10 +116,11 @@
                 <div v-bind:class="{ 'has-error' : errors.text }" class="form-group">
                     <label for="text">Text</label>
                     <span v-if="errors.text" class="form-input-error">{{ errors.text }}</span>
-                    <textarea class="form-control Summernote"
-                              v-model="model.text"
-                              placeholder="Text"
-                              required
+                    <textarea name="posts-text"
+                            class="form-control Summernote"
+                            v-model="model.text"
+                            placeholder="Text"
+                            required
                     ></textarea>
                 </div>
 
@@ -128,8 +129,8 @@
                     <label for="keywords">Keywords</label>
                     <span v-if="errors.keywords" class="form-input-error">{{ errors.keywords }}</span>
                     <input type="text" class="form-control"
-                              v-model="model.keywords"
-                              placeholder="optional"
+                           v-model="model.keywords"
+                           placeholder="optional"
                     />
                 </div>
 
