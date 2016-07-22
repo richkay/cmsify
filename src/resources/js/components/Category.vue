@@ -113,7 +113,6 @@
         events: {
             'category-child-removed': function(msg) {
                 if(this.node.id == msg.node.parent_id) {
-                    console.log(this.node)
                     this.node.children.$remove(msg.node);
                 }
             }

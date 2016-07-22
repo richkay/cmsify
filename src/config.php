@@ -6,9 +6,10 @@ return [
 
     "images" => [
         'maxfilesize' => 2000,
-        'maxwidth' => 800,
         'maxheight' => 800,
+        'maxwidth' => 800,
         'quality' => 65,
+        'intervention_driver' => 'gd',
         'storage_path' => storage_path('cmsify/images')
     ],
 

@@ -18,15 +18,7 @@ BACKLINK
 
 </div>
 
-{{--use laravel config here and @include(package::) this, package consumer can override this --}}
-<script type="text/javascript">
-    function initSummernote()
-    {
-        return $('.Summernote').summernote({
-            height: 100,
-        });
-    }
-</script>
+@include('cmsify::partials.summernote-script')
 
 <script src="/vendor/cmsify/cmsify_vendor.js"></script>
 <script src="/vendor/cmsify/cmsify.js"></script>

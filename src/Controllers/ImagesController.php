@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 
 class ImagesController extends Controller
@@ -58,9 +57,9 @@ class ImagesController extends Controller
             return sprintf('/cmsify/images/%s/original/%s', $context, $targetFilename);
         }
 
-        $manager = new ImageManager(array('driver' => 'gd'));
+        $manager = new ImageManager(array('driver' => config('cmsify.images.intervention_driver')));
 
-        $image = $manager->make($file->getRealPath())->save(
+        $manager->make($file->getRealPath())->save(
             $targetFile,
             config('cmsify.images.quality', 65)
         );
