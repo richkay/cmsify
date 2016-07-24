@@ -31,10 +31,22 @@ class PostsController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param PostsTransformer $postsTransformer
+     * @param Post $post
+     * @return Response
+     */
+    public function create(PostsTransformer $postsTransformer, Post $post)
+    {
+        return $postsTransformer->transform($post);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param PostsTransformer $postsTransformer
-     * @param PostCreateRequest $request
+     * @param PostFormRequest $request
      * @return Response
      */
     public function store(PostsTransformer $postsTransformer, PostFormRequest $request)
@@ -59,7 +71,7 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param PostsTransformer $postsTransformer
-     * @param PostCreateRequest $request
+     * @param PostFormRequest $request
      * @param  int $id
      * @return Response
      */

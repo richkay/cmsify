@@ -40,17 +40,25 @@ class PostPreserveJob extends Job implements SelfHandling
 
 
     /**
-     * @return string
+     * @param Post $post
+     * @return Post
      */
-    protected function getSlug()
+    protected function preservePost(Post $post)
     {
-        $slug = str_slug($this->request->get('title'));
-        $i = 0;
-        while (Post::whereSlug($slug)->first() && $i++)
+        if ($this->id)
         {
-            $slug .= '-' . $i;
+            $post = $post->findOrFail($this->id);
+            $post->slug = $this->request->get('slug');
+        } else
+        {
+            $post->user_id = $this->request->user()->id;
+            $post->slug = $this->generateSlug();
         }
-        return $slug;
+
+        $post->fill($this->request->only('state', 'title', 'text', 'keywords', 'description'));
+        $post->save();
+
+        return $post;
     }
 
     /**
@@ -94,27 +102,6 @@ class PostPreserveJob extends Job implements SelfHandling
         {
             $post->categories()->sync(array_pluck($this->request->get('categories', []), 'id'));
         }
-
-        return $post;
-    }
-
-    /**
-     * @param Post $post
-     * @return Post
-     */
-    protected function preservePost(Post $post)
-    {
-        if ($this->id)
-        {
-            $post = $post->findOrFail($this->id);
-        } else
-        {
-            $post->user_id = $this->request->user()->id;
-            $post->slug = $this->generateSlug();
-        }
-
-        $post->fill($this->request->only('state', 'title', 'slug', 'text', 'keywords', 'description'));
-        $post->save();
 
         return $post;
     }

@@ -20,7 +20,7 @@
 
         ready() {
 
-            var vm = this;
+            let vm = this;
 
             vm.tags = [];
             vm.model.tags = [];
@@ -38,13 +38,19 @@
                 });
             } else {
 
-                vm.initTextEditor();
+                // get custom relational data etc.
+                vm.$http.get('/cmsify/api/posts/create').then(r => {
+                    vm.model = r.data;
 
-                if (parseInt(vm.$route.params.categoryId)) {
-                    vm.model.categories = [{
-                        id: vm.$route.params.categoryId
-                    }];
-                }
+                    if (parseInt(vm.$route.params.categoryId)) {
+                        vm.model.categories = [{
+                            id: vm.$route.params.categoryId
+                        }];
+                    }
+
+                });
+
+                vm.initTextEditor();
 
             }
 
