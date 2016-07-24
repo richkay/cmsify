@@ -118,4 +118,19 @@ class PostPreserveJob extends Job implements SelfHandling
 
         return $post;
     }
+
+    /**
+     * @return string
+     */
+    protected function generateSlug()
+    {
+        $slug = str_slug($this->request->get('title'));
+        $i = 0;
+        while (Post::whereSlug($slug)->first() && $i++)
+        {
+            $slug .= '-' . $i;
+        }
+
+        return $slug;
+    }
 }
