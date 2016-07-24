@@ -1,9 +1,7 @@
 <?php namespace Cmsify\Controllers;
 
+use Cmsify\Jobs\PostPreserveJob;
 use Cmsify\Post;
-use Illuminate\Http\Request;
-use Cmsify\Jobs\PostUpdateJob;
-use Cmsify\Jobs\PostCreateJob;
 use Cmsify\Jobs\PostDeleteJob;
 use App\Http\Controllers\Controller;
 use Cmsify\Requests\PostFormRequest;
@@ -16,21 +14,20 @@ class PostsController extends Controller
      * Display a listing of the resource.
      *
      * @param $categoryId
+     * @param Post $post
      * @return Response
      */
-    public function index($categoryId = null)
+    public function index($categoryId = null, Post $post)
     {
-        $query = Post::query();
-
         if ($categoryId)
         {
-            $query->whereHas('categories', function ($q) use ($categoryId)
+            $post->whereHas('categories', function ($q) use ($categoryId)
             {
                 $q->where('category_id', $categoryId);
             });
         }
 
-        return $query->get()->all();
+        return $post->get()->all();
     }
 
     /**
@@ -42,7 +39,7 @@ class PostsController extends Controller
      */
     public function store(PostsTransformer $postsTransformer, PostFormRequest $request)
     {
-        return $postsTransformer->transform($this->dispatch(new PostCreateJob($request)));
+        return $postsTransformer->transform($this->dispatch(new PostPreserveJob($request)));
     }
 
     /**
@@ -69,7 +66,7 @@ class PostsController extends Controller
     public function update(PostsTransformer $postsTransformer, PostFormRequest $request, $id)
     {
         return $postsTransformer->transform(
-            $this->dispatch(new PostUpdateJob($request, $id))
+            $this->dispatch(new PostPreserveJob($request, $id))
         );
     }
 

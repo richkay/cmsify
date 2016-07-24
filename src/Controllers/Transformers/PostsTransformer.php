@@ -7,6 +7,7 @@ class PostsTransformer extends AbstractTransformer
     {
         $response = [
             'id' => $item['id'],
+            'state' => $item['state'],
             'title' => $item['title'],
             'slug' => $item['slug'],
             'text' => $item['text'],
@@ -16,6 +17,19 @@ class PostsTransformer extends AbstractTransformer
             'categories' => $item->categories,
         ];
 
+        $response = $this->appendCustomRelations($item, $response);
+
+        return $response;
+
+    }
+
+    /**
+     * @param $item
+     * @param $response
+     * @return mixed
+     */
+    protected function appendCustomRelations($item, $response)
+    {
         $relations = config('cmsify.models.post.relations');
 
         foreach ($relations as $relation => $options)
@@ -39,6 +53,5 @@ class PostsTransformer extends AbstractTransformer
         }
 
         return $response;
-
     }
 }

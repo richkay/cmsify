@@ -2,7 +2,6 @@
 
 return [
 
-    // !TODO: implement configs
     "models" => [
         "post" => [
             "class" => App\Post::class,
@@ -15,6 +14,7 @@ return [
         ]
     ],
 
+    // !TODO: implement configs
     "images" => [
         'maxfilesize' => 2000,
         'maxheight' => 800,
