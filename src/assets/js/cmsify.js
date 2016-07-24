@@ -366,13 +366,18 @@ exports.default = {
             });
         } else {
 
-            vm.initTextEditor();
+            // get custom relational data etc.
+            vm.$http.get('/cmsify/api/posts/create').then(function (r) {
+                vm.model = r.data;
 
-            if (parseInt(vm.$route.params.categoryId)) {
-                vm.model.categories = [{
-                    id: vm.$route.params.categoryId
-                }];
-            }
+                if (parseInt(vm.$route.params.categoryId)) {
+                    vm.model.categories = [{
+                        id: vm.$route.params.categoryId
+                    }];
+                }
+            });
+
+            vm.initTextEditor();
         }
     },
 

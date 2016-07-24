@@ -12,6 +12,8 @@ class CmsifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'cmsify');
+        
         $this->publishes([
             __DIR__ . '/config.php' => config_path('cmsify.php'),
         ], 'config');
@@ -27,7 +29,6 @@ class CmsifyServiceProvider extends ServiceProvider
             __DIR__ . '/assets/fonts' => public_path('fonts'),
         ], 'public');
 
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'cmsify');
         $this->publishes([
             __DIR__.'/resources/views' => base_path('resources/views/vendor/cmsify'),
         ], 'views');
