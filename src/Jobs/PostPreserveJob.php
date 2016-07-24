@@ -112,12 +112,13 @@ class PostPreserveJob extends Job implements SelfHandling
     protected function generateSlug()
     {
         $slug = str_slug($this->request->get('title'));
-        $i = 0;
-        while (Post::whereSlug($slug)->first() && $i++)
+        $uniqueSlug = $slug;
+        $i = 1;
+        while ($post = Post::whereSlug($uniqueSlug)->get()->first())
         {
-            $slug .= '-' . $i;
+            $uniqueSlug = $slug . '-' . $i++;
         }
 
-        return $slug;
+        return $uniqueSlug;
     }
 }
