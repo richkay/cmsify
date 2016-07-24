@@ -4,7 +4,6 @@
     <title>CMSIFY</title>
     <link rel="stylesheet" href="/css/cmsify.css">
     <link rel="stylesheet" href="/css/cmsify_vendor.css">
-
 </head>
 <body>
 
