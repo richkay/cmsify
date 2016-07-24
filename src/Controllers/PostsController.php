@@ -19,6 +19,7 @@ class PostsController extends Controller
      */
     public function index($categoryId = null, Post $post)
     {
+        $categoryId = (int) $categoryId;
         if ($categoryId)
         {
             $post->whereHas('categories', function ($q) use ($categoryId)
