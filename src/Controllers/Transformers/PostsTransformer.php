@@ -34,23 +34,21 @@ class PostsTransformer extends AbstractTransformer
 
         foreach ($relations as $relation => $options)
         {
-
+            // !TODO do something like method_exists for $item->{$relation}()
             $relationModel = app(get_class($item->{$relation}()->getRelated()));
             $response['relations'][] = array_merge(array_only($options, ['label', 'multiple']), [
                 'name' => $relation,
                 'options' => $relationModel->get()->all()
             ]);
 
-            if (isset($item->{$relation}))
+            if ($options['multiple'])
             {
-                if ($options['multiple'])
-                {
-                    $response[$relation] = $item->{$relation};
-                } else
-                {
-                    $response[$relation] = $item->{$relation}()->first();
-                }
+                $response[$relation] = $item->{$relation};
+            } else
+            {
+                $response[$relation] = $item->{$relation}()->first();
             }
+
         }
 
         return $response;
