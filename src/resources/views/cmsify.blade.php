@@ -7,14 +7,9 @@
 </head>
 <body>
 
-BACKLINK
-
-<input type="hidden" id="token" value="{{ csrf_token() }}">
-
 <div id="cmsify">
-
+    <input type="hidden" id="token" value="{{ csrf_token() }}">
     <router-view></router-view>
-
 </div>
 
 @include('cmsify::partials.summernote-script')
@@ -23,6 +18,4 @@ BACKLINK
 <script src="/js/cmsify.js"></script>
 
 </body>
-
-
 </html>
