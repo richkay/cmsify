@@ -156,14 +156,6 @@
                     ></textarea>
                 </div>
 
-                <div class="form-group" v-for="relation in model.relations">
-                    <label>{{ relation.label }}</label>
-                    <v-select :multiple="relation.multiple"
-                              :options="relation.options"
-                              :value.sync="model[relation.name]"
-                              label="name"></v-select>
-                </div>
-
                 <div class="form-group">
                     <label>Tags</label>
                     <v-select multiple
@@ -191,6 +183,16 @@
                         >
                         </v-select>
                     </div>
+                </div>
+
+                <h3 v-if="model.relations">Relational Data</h3>
+
+                <div class="form-group" v-for="relation in model.relations">
+                    <label>{{ relation.label }}</label>
+                    <v-select :multiple="relation.multiple"
+                              :options="relation.options"
+                              :value.sync="model[relation.name]"
+                              label="name"></v-select>
                 </div>
 
                 <div v-bind:class="{ 'has-error' : errors.text }" class="form-group">

@@ -8,7 +8,6 @@ return [
             "class" => App\Post::class,
             "relations" => [
                 'locations' => [
-                    'model' => \App\Location::class,
                     'label' => 'Locations',
                     'multiple' => true,
                 ]

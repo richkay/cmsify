@@ -22,7 +22,7 @@ class PostsTransformer extends AbstractTransformer
         {
             if (isset($item->{$relation}))
             {
-                $relationModel = app($options['model']);
+                $relationModel = app(get_class($item->{$relation}()->getRelated()));
                 $response['relations'][] = array_merge(array_only($options, ['label', 'multiple']), [
                     'name' => $relation,
                     'options' => $relationModel->get()->all()
