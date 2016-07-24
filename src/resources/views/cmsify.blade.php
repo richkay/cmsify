@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>CMSIFY</title>
-    <link rel="stylesheet" href="/vendor/cmsify/cmsify.css">
-    <link rel="stylesheet" href="/vendor/cmsify/cmsify_vendor.css">
+    <link rel="stylesheet" href="/css/cmsify.css">
+    <link rel="stylesheet" href="/css/cmsify_vendor.css">
 
 </head>
 <body>
@@ -20,8 +20,8 @@ BACKLINK
 
 @include('cmsify::partials.summernote-script')
 
-<script src="/vendor/cmsify/cmsify_vendor.js"></script>
-<script src="/vendor/cmsify/cmsify.js"></script>
+<script src="/js/cmsify_vendor.js"></script>
+<script src="/js/cmsify.js"></script>
 
 </body>
 

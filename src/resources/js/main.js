@@ -53,6 +53,7 @@ router.map({
         component: require('./PagesView.vue'),
         subRoutes: {
             '/': {
+                name: 'page_index',
                 component: require('./pages/index.vue')
             },
             '/create': {

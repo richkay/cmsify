@@ -24,13 +24,34 @@ class PostCreateJob extends Job implements SelfHandling
 
     public function handle()
     {
-        $post = Post::create(array_merge(
+        $post = app(Post::class);
+        $post->fill(array_merge(
             ['user_id' => $this->request->user()->id],
             $this->request->only('state', 'title', 'text', 'keywords', 'description')
         ));
 
+        $slug = str_slug($this->request->get('title'));
+        $i = 0;
+        while (Post::whereSlug($slug)->first() && $i++)
+        {
+            $slug .= '-' . $i;
+        }
+
+        $post->slug = $slug;
+        $post->save();
+
         $post->tags()->sync(array_pluck($this->request->get('tags', []), 'id'));
         $post->categories()->sync(array_pluck($this->request->get('categories', []), 'id'));
+
+        $relations = config('cmsify.models.post.relations');
+
+        foreach ($relations as $relation => $options)
+        {
+            if ($this->request->has($relation))
+            {
+                $post->{$relation}()->sync(array_pluck($this->request->get($relation, []), 'id'));
+            }
+        }
 
         return $post;
     }

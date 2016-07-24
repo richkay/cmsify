@@ -3,6 +3,18 @@
 return [
 
     // !TODO: implement configs
+    "models" => [
+        "post" => [
+            "class" => App\Post::class,
+            "relations" => [
+                'locations' => [
+                    'model' => \App\Location::class,
+                    'label' => 'Locations',
+                    'multiple' => true,
+                ]
+            ]
+        ]
+    ],
 
     "images" => [
         'maxfilesize' => 2000,
@@ -14,10 +26,8 @@ return [
     ],
 
     "categories" => [
-
         "disabled" => false,
         "maxLevel" => 2,
-
     ],
 
     "tags" => [

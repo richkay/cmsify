@@ -23,6 +23,7 @@ class CreatePostsTable extends Migration
             $table->string('state', 10)->default(\Cmsify\Post::STATE_DRAFT)->index();
 
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('text');
             $table->string('keywords')->nullable();
             $table->string('description')->nullable();

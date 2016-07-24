@@ -112,15 +112,27 @@
                     />
                 </div>
 
+                <!-- Slug Form Input -->
+                <div v-if="model.slug" v-bind:class="{ 'has-error' : errors.slug }" class="form-group">
+                    <label for="slug">Slug</label>
+                    <span v-if="errors.slug" class="form-input-error">{{ errors.slug }}</span>
+                    <input type="text" name="slug" class="form-control"
+                           v-model="model.slug"
+                           placeholder="Slug"
+                           required
+                    />
+                </div>
+
+
                 <!-- Text Form Input -->
                 <div v-bind:class="{ 'has-error' : errors.text }" class="form-group">
                     <label for="text">Text</label>
                     <span v-if="errors.text" class="form-input-error">{{ errors.text }}</span>
                     <textarea name="posts-text"
-                            class="form-control Summernote"
-                            v-model="model.text"
-                            placeholder="Text"
-                            required
+                              class="form-control Summernote"
+                              v-model="model.text"
+                              placeholder="Text"
+                              required
                     ></textarea>
                 </div>
 
@@ -142,6 +154,14 @@
                               v-model="model.description"
                               placeholder="optional"
                     ></textarea>
+                </div>
+
+                <div class="form-group" v-for="relation in model.relations">
+                    <label>{{ relation.label }}</label>
+                    <v-select :multiple="relation.multiple"
+                              :options="relation.options"
+                              :value.sync="model[relation.name]"
+                              label="name"></v-select>
                 </div>
 
                 <div class="form-group">

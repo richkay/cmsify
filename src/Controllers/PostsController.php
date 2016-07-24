@@ -6,7 +6,7 @@ use Cmsify\Jobs\PostUpdateJob;
 use Cmsify\Jobs\PostCreateJob;
 use Cmsify\Jobs\PostDeleteJob;
 use App\Http\Controllers\Controller;
-use Cmsify\Requests\PostCreateRequest;
+use Cmsify\Requests\PostFormRequest;
 use Cmsify\Controllers\Transformers\PostsTransformer;
 
 class PostsController extends Controller
@@ -40,7 +40,7 @@ class PostsController extends Controller
      * @param PostCreateRequest $request
      * @return Response
      */
-    public function store(PostsTransformer $postsTransformer, PostCreateRequest $request)
+    public function store(PostsTransformer $postsTransformer, PostFormRequest $request)
     {
         return $postsTransformer->transform($this->dispatch(new PostCreateJob($request)));
     }
@@ -54,7 +54,8 @@ class PostsController extends Controller
      */
     public function show(PostsTransformer $postsTransformer, $id)
     {
-        return $postsTransformer->transform(Post::findOrFail($id));
+        $post = app(Post::class);
+        return $postsTransformer->transform($post->findOrFail($id));
     }
 
     /**
@@ -65,7 +66,7 @@ class PostsController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update(PostsTransformer $postsTransformer, PostCreateRequest $request, $id)
+    public function update(PostsTransformer $postsTransformer, PostFormRequest $request, $id)
     {
         return $postsTransformer->transform(
             $this->dispatch(new PostUpdateJob($request, $id))

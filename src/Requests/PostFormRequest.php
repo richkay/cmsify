@@ -4,7 +4,7 @@ namespace Cmsify\Requests;
 
 use App\Http\Requests\Request;
 
-class PostCreateRequest extends Request
+class PostFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,7 @@ class PostCreateRequest extends Request
         return [
             'title' => 'required|min:3',
             'text' => 'required',
+            'slug' => 'required_with:id|unique:cmsify_posts,slug,'.$this->get('id'),
             'categories' => 'required'
         ];
     }

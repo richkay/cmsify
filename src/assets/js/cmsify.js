@@ -12,9 +12,9 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-4670ecd3", module.exports)
+    hotAPI.createRecord("_v-75824622", module.exports)
   } else {
-    hotAPI.update("_v-4670ecd3", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-75824622", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":114,"vue-hot-reload-api":110}],2:[function(require,module,exports){
@@ -31,9 +31,9 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-bfee79fa", module.exports)
+    hotAPI.createRecord("_v-dca9bdc2", module.exports)
   } else {
-    hotAPI.update("_v-bfee79fa", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-dca9bdc2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":114,"vue-hot-reload-api":110}],3:[function(require,module,exports){
@@ -159,7 +159,6 @@ exports.default = {
     events: {
         'category-child-removed': function categoryChildRemoved(msg) {
             if (this.node.id == msg.node.parent_id) {
-                console.log(this.node);
                 this.node.children.$remove(msg.node);
             }
         }
@@ -176,9 +175,9 @@ if (module.hot) {(function () {  module.hot.accept()
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-950c25de", module.exports)
+    hotAPI.createRecord("_v-717b4fa6", module.exports)
   } else {
-    hotAPI.update("_v-950c25de", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-717b4fa6", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":114,"vue-hot-reload-api":110,"vueify/lib/insert-css":115}],4:[function(require,module,exports){
@@ -418,7 +417,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<form @submit.prevent=\"save()\">\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!-- Title Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.title }\" class=\"form-group\">\n                <label for=\"title\">Title</label>\n                <span v-if=\"errors.title\" class=\"form-input-error\">{{ errors.title }}</span>\n                <input type=\"text\" name=\"title\" class=\"form-control\" v-model=\"model.title\" placeholder=\"Title\" required=\"\">\n            </div>\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.text }\" class=\"form-group\">\n                <label for=\"text\">Text</label>\n                <span v-if=\"errors.text\" class=\"form-input-error\">{{ errors.text }}</span>\n                <textarea class=\"form-control Summernote\" v-model=\"model.text\" placeholder=\"Text\" required=\"\"></textarea>\n            </div>\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.keywords }\" class=\"form-group\">\n                <label for=\"keywords\">Keywords</label>\n                <span v-if=\"errors.keywords\" class=\"form-input-error\">{{ errors.keywords }}</span>\n                <input type=\"text\" class=\"form-control\" v-model=\"model.keywords\" placeholder=\"optional\">\n            </div>\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.description }\" class=\"form-group\">\n                <label for=\"keywords\">Description</label>\n                <span v-if=\"errors.description\" class=\"form-input-error\">{{ errors.description }}</span>\n                <textarea class=\"form-control\" v-model=\"model.description\" placeholder=\"optional\"></textarea>\n            </div>\n\n            <div class=\"form-group\">\n                <label>Tags</label>\n                <v-select multiple=\"\" :debounce=\"250\" :on-search=\"getTags\" :options.sync=\"tags\" :value.sync=\"model.tags\" placeholder=\"Tags...\" label=\"name\">\n                </v-select>\n            </div>\n\n            <div class=\"form-group\" v-bind:class=\"{ 'has-error' : errors.categories }\">\n                <span v-if=\"errors.categories\" class=\"form-input-error\">{{ errors.categories }}</span>\n                <div v-if=\"model.id\">\n                    <label>Categories</label>\n                    <v-select multiple=\"\" :debounce=\"250\" :on-search=\"getCategories\" :options.sync=\"categories\" :value.sync=\"model.categories\" placeholder=\"Categories...\" label=\"name\">\n                    </v-select>\n                </div>\n            </div>\n\n            <div v-bind:class=\"{ 'has-error' : errors.text }\" class=\"form-group\">\n                <button type=\"submit\" @click=\"setState('draft')\" class=\"btn btn-primary\">Draft</button>\n                <button type=\"submit\" @click=\"setState('published')\" class=\"btn btn-success\">Publish</button>\n            </div>\n        </div>\n    </div>\n\n</form>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<form @submit.prevent=\"save()\">\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!-- Title Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.title }\" class=\"form-group\">\n                <label for=\"title\">Title</label>\n                <span v-if=\"errors.title\" class=\"form-input-error\">{{ errors.title }}</span>\n                <input type=\"text\" name=\"title\" class=\"form-control\" v-model=\"model.title\" placeholder=\"Title\" required=\"\">\n            </div>\n\n            <!-- Slug Form Input -->\n            <div v-if=\"model.slug\" v-bind:class=\"{ 'has-error' : errors.slug }\" class=\"form-group\">\n                <label for=\"slug\">Slug</label>\n                <span v-if=\"errors.slug\" class=\"form-input-error\">{{ errors.slug }}</span>\n                <input type=\"text\" name=\"slug\" class=\"form-control\" v-model=\"model.slug\" placeholder=\"Slug\" required=\"\">\n            </div>\n\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.text }\" class=\"form-group\">\n                <label for=\"text\">Text</label>\n                <span v-if=\"errors.text\" class=\"form-input-error\">{{ errors.text }}</span>\n                <textarea name=\"posts-text\" class=\"form-control Summernote\" v-model=\"model.text\" placeholder=\"Text\" required=\"\"></textarea>\n            </div>\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.keywords }\" class=\"form-group\">\n                <label for=\"keywords\">Keywords</label>\n                <span v-if=\"errors.keywords\" class=\"form-input-error\">{{ errors.keywords }}</span>\n                <input type=\"text\" class=\"form-control\" v-model=\"model.keywords\" placeholder=\"optional\">\n            </div>\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.description }\" class=\"form-group\">\n                <label for=\"keywords\">Description</label>\n                <span v-if=\"errors.description\" class=\"form-input-error\">{{ errors.description }}</span>\n                <textarea class=\"form-control\" v-model=\"model.description\" placeholder=\"optional\"></textarea>\n            </div>\n\n            <div class=\"form-group\">\n                <label>Tags</label>\n                <v-select multiple=\"\" :debounce=\"250\" :on-search=\"getTags\" :options.sync=\"tags\" :value.sync=\"model.tags\" placeholder=\"Tags...\" label=\"name\">\n                </v-select>\n            </div>\n\n            <div class=\"form-group\" v-bind:class=\"{ 'has-error' : errors.categories }\">\n                <span v-if=\"errors.categories\" class=\"form-input-error\">{{ errors.categories }}</span>\n                <div v-if=\"model.id\">\n                    <label>Categories</label>\n                    <v-select multiple=\"\" :debounce=\"250\" :on-search=\"getCategories\" :options.sync=\"categories\" :value.sync=\"model.categories\" placeholder=\"Categories...\" label=\"name\">\n                    </v-select>\n                </div>\n            </div>\n\n            <div v-bind:class=\"{ 'has-error' : errors.text }\" class=\"form-group\">\n                <button type=\"submit\" @click=\"setState('draft')\" class=\"btn btn-primary\">Draft</button>\n                <button type=\"submit\" @click=\"setState('published')\" class=\"btn btn-success\">Publish</button>\n            </div>\n        </div>\n    </div>\n\n</form>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -428,9 +427,9 @@ if (module.hot) {(function () {  module.hot.accept()
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-4af4e9f6", module.exports)
+    hotAPI.createRecord("_v-1d2ef069", module.exports)
   } else {
-    hotAPI.update("_v-4af4e9f6", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-1d2ef069", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"../mixins/ModelFormMixin":5,"vue":114,"vue-hot-reload-api":110,"vue-select":113,"vueify/lib/insert-css":115}],7:[function(require,module,exports){
@@ -472,9 +471,9 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-4667ec3e", module.exports)
+    hotAPI.createRecord("_v-21615e06", module.exports)
   } else {
-    hotAPI.update("_v-4667ec3e", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-21615e06", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":114,"vue-hot-reload-api":110}],8:[function(require,module,exports){

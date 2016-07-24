@@ -29,9 +29,11 @@ class PostUpdateJob extends Job implements SelfHandling
 
     public function handle()
     {
-        $post = Post::findOrFail($this->id);
-        $post->fill($this->request->only('state', 'title', 'text', 'keywords', 'description'));
+        $post = app(Post::class);
+        $post = $post->findOrFail($this->id);
+        $post->fill($this->request->only('state', 'title', 'slug', 'text', 'keywords', 'description'));
         $post->save();
+
         if (is_array($this->request->get('tags')))
         {
             $post->tags()->sync(array_pluck($this->request->get('tags'), 'id'));
@@ -39,6 +41,24 @@ class PostUpdateJob extends Job implements SelfHandling
         if (is_array($this->request->get('categories')))
         {
             $post->categories()->sync(array_pluck($this->request->get('categories', []), 'id'));
+        }
+
+        $relations = config('cmsify.models.post.relations');
+
+        foreach ($relations as $relation => $options)
+        {
+            if ($this->request->has($relation))
+            {
+                $relationData = $this->request->get($relation, []);
+                if (isset($relationData['id']))
+                {
+                    $post->{$relation}()->sync([$relationData['id']]);
+                } else
+                {
+                    $post->{$relation}()->sync(array_pluck($relationData, 'id'));
+                }
+
+            }
         }
 
         return $post;

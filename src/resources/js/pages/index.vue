@@ -2,6 +2,12 @@
 
     export default {
 
+        route: {
+            data() {
+                this.load(this.$route.params.categoryId);
+            }
+        },
+
         data() {
             return {
                 posts: []
@@ -10,12 +16,15 @@
 
         ready() {
 
-            this.$http.get('/cmsify/api/categories/' + this.$route.params.categoryId + '/posts').then(r => {
-                this.posts = r.data;
-            });
         },
 
         methods: {
+
+            load(categoryId) {
+                this.$http.get('/cmsify/api/categories/' + categoryId + '/posts').then(r => {
+                    this.posts = r.data;
+                });
+            },
 
             destroy(post) {
 
@@ -39,11 +48,6 @@
                 <a v-link="{name : 'page_create', params : {categoryId : $route.params.categoryId }}"
                    class="btn btn-primary"
                 >Create Post</a>
-                <span v-if="parseInt($route.params.categoryId)">
-                    <a v-link="{name : 'page_create', params : {categoryId : $route.params.categoryId }}"
-                       class="btn btn-default"
-                    >Create Category</a>
-                </span>
             </div>
         </div>
 

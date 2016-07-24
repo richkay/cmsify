@@ -21,10 +21,10 @@ class CmsifyServiceProvider extends ServiceProvider
         ], 'migrations');
 
         $this->publishes([
-            __DIR__ . '/assets/js' => public_path('vendor/cmsify'),
-            __DIR__ . '/assets/css' => public_path('vendor/cmsify'),
+            __DIR__ . '/assets/js' => public_path('js'),
+            __DIR__ . '/assets/css' => public_path('css'),
             // !TODO fontawesome: howto specify the fonts url
-            __DIR__ . '/assets/fonts' => public_path('vendor/fonts'),
+            __DIR__ . '/assets/fonts' => public_path('fonts'),
         ], 'public');
 
         $this->loadViewsFrom(__DIR__.'/resources/views', 'cmsify');
@@ -49,6 +49,11 @@ class CmsifyServiceProvider extends ServiceProvider
             , function ()
         {
             require_once 'routes.php';
+        });
+
+        $this->app->bind(Post::class, function() {
+            $class = config('cmsify.models.post.class');
+            return new $class();
         });
 
         // composer dependency
