@@ -17,7 +17,7 @@ Make sure your are logged in or auth/login is working and than try:
 
 `http://local.app/cmsify`
 
-See config where you can change,for example, routing stuff like middleware and prefixing under
+See config where you can change,for example, routing stuff like middleware and prefixing:
  
 `config/cmsify.php`
  
