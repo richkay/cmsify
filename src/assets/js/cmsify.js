@@ -21,11 +21,19 @@ if (module.hot) {(function () {  module.hot.accept()
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-exports.default = {};
+exports.default = {
+
+    methods: {
+        isCategoriesEnabled: function isCategoriesEnabled() {
+            return !window.categoriesDisabled;
+        }
+    }
+
+};
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"container\">\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <h1>CMSify</h1>\n        </div>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-xs-4 col-md-3\">\n            <div>\n                <cmsify-category></cmsify-category>\n            </div>\n        </div>\n\n        <div class=\"col-xs-8 col-md-9\">\n            <router-view></router-view>\n        </div>\n    </div>\n\n    <hr>\n    <pre>{{ $route.params | json }}</pre>\n\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"container\">\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <h1>CMSify</h1>\n        </div>\n    </div>\n\n    <div class=\"row\" v-if=\"isCategoriesEnabled()\">\n        <div class=\"col-xs-4 col-md-3\">\n            <div>\n                <cmsify-category></cmsify-category>\n            </div>\n        </div>\n\n        <div class=\"col-xs-8 col-md-9\">\n            <router-view></router-view>\n        </div>\n    </div>\n\n    <div class=\"row\" v-else=\"isCategoriesEnabled()\">\n        <div class=\"col-xs-8 col-md-12\">\n            <router-view></router-view>\n        </div>\n    </div>\n\n    <hr>\n    <pre>{{ $route.params | json }}</pre>\n\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -297,8 +305,14 @@ exports.default = {
 
             this.$http[method](endpoint, this.model).then(function (r) {
                 _this.afterSave(r);
+                if (r.data.state == 'published') {
+                    toastr.success('Post Published!');
+                } else {
+                    toastr.info('Post Saved!');
+                }
             }).catch(function (r) {
                 _this.errors = r.data;
+                toastr.error('Post couldnt Saved...');
             });
         },
         afterSave: function afterSave(r) {
@@ -383,6 +397,12 @@ exports.default = {
 
 
     methods: {
+        isCategoriesEnabled: function isCategoriesEnabled() {
+            return !window.categoriesDisabled;
+        },
+        isTagsEnabled: function isTagsEnabled() {
+            return !window.tagsDisabled;
+        },
         initTextEditor: function initTextEditor() {
             var vm = this;
             if (typeof initSummernote == 'function') {
@@ -423,7 +443,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<form @submit.prevent=\"save()\">\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!-- Title Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.title }\" class=\"form-group\">\n                <label for=\"title\">Title</label>\n                <span v-if=\"errors.title\" class=\"form-input-error\">{{ errors.title }}</span>\n                <input type=\"text\" name=\"title\" class=\"form-control\" v-model=\"model.title\" placeholder=\"Title\" required=\"\">\n            </div>\n\n            <!-- Slug Form Input -->\n            <div v-if=\"model.slug\" v-bind:class=\"{ 'has-error' : errors.slug }\" class=\"form-group\">\n                <label for=\"slug\">Slug</label>\n                <span v-if=\"errors.slug\" class=\"form-input-error\">{{ errors.slug }}</span>\n                <input type=\"text\" name=\"slug\" class=\"form-control\" v-model=\"model.slug\" placeholder=\"Slug\" required=\"\">\n            </div>\n\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.text }\" class=\"form-group\">\n                <label for=\"text\">Text</label>\n                <span v-if=\"errors.text\" class=\"form-input-error\">{{ errors.text }}</span>\n                <textarea name=\"posts-text\" class=\"form-control Summernote\" v-model=\"model.text\" placeholder=\"Text\" required=\"\"></textarea>\n            </div>\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.keywords }\" class=\"form-group\">\n                <label for=\"keywords\">Keywords</label>\n                <span v-if=\"errors.keywords\" class=\"form-input-error\">{{ errors.keywords }}</span>\n                <input type=\"text\" class=\"form-control\" v-model=\"model.keywords\" placeholder=\"optional\">\n            </div>\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.description }\" class=\"form-group\">\n                <label for=\"keywords\">Description</label>\n                <span v-if=\"errors.description\" class=\"form-input-error\">{{ errors.description }}</span>\n                <textarea class=\"form-control\" v-model=\"model.description\" placeholder=\"optional\"></textarea>\n            </div>\n\n            <div class=\"form-group\">\n                <label>Tags</label>\n                <v-select multiple=\"\" :debounce=\"250\" :on-search=\"getTags\" :options.sync=\"tags\" :value.sync=\"model.tags\" placeholder=\"Tags...\" label=\"name\">\n                </v-select>\n            </div>\n\n            <div class=\"form-group\" v-bind:class=\"{ 'has-error' : errors.categories }\">\n                <span v-if=\"errors.categories\" class=\"form-input-error\">{{ errors.categories }}</span>\n                <div v-if=\"model.id\">\n                    <label>Categories</label>\n                    <v-select multiple=\"\" :debounce=\"250\" :on-search=\"getCategories\" :options.sync=\"categories\" :value.sync=\"model.categories\" placeholder=\"Categories...\" label=\"name\">\n                    </v-select>\n                </div>\n            </div>\n\n            <h3 v-if=\"model.relations\">Relational Data</h3>\n\n            <div class=\"form-group\" v-for=\"relation in model.relations\">\n                <label>{{ relation.label }}</label>\n                <v-select :multiple=\"relation.multiple\" :options=\"relation.options\" :value.sync=\"model[relation.name]\" label=\"name\"></v-select>\n            </div>\n\n            <div v-bind:class=\"{ 'has-error' : errors.text }\" class=\"form-group\">\n                <button type=\"submit\" @click=\"setState('draft')\" class=\"btn btn-primary\">Draft</button>\n                <button type=\"submit\" @click=\"setState('published')\" class=\"btn btn-success\">Publish</button>\n            </div>\n        </div>\n    </div>\n\n</form>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<form @submit.prevent=\"save()\">\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!-- Title Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.title }\" class=\"form-group\">\n                <label for=\"title\">Title</label>\n                <span v-if=\"errors.title\" class=\"form-input-error\">{{ errors.title }}</span>\n                <input type=\"text\" name=\"title\" class=\"form-control\" v-model=\"model.title\" placeholder=\"Title\" required=\"\">\n            </div>\n\n            <!-- Slug Form Input -->\n            <div v-if=\"model.slug\" v-bind:class=\"{ 'has-error' : errors.slug }\" class=\"form-group\">\n                <label for=\"slug\">Slug</label>\n                <span v-if=\"errors.slug\" class=\"form-input-error\">{{ errors.slug }}</span>\n                <input type=\"text\" name=\"slug\" class=\"form-control\" v-model=\"model.slug\" placeholder=\"Slug\" required=\"\">\n            </div>\n\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.text }\" class=\"form-group\">\n                <label for=\"posts-text\">Text</label>\n                <span v-if=\"errors.text\" class=\"form-input-error\">{{ errors.text }}</span>\n                <textarea name=\"posts-text\" class=\"form-control Summernote\" v-model=\"model.text\" placeholder=\"Text\" required=\"\"></textarea>\n            </div>\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.keywords }\" class=\"form-group\">\n                <label for=\"keywords\">Keywords</label>\n                <span v-if=\"errors.keywords\" class=\"form-input-error\">{{ errors.keywords }}</span>\n                <input type=\"text\" class=\"form-control\" v-model=\"model.keywords\" placeholder=\"optional\">\n            </div>\n\n            <!-- Text Form Input -->\n            <div v-bind:class=\"{ 'has-error' : errors.description }\" class=\"form-group\">\n                <label for=\"keywords\">Description</label>\n                <span v-if=\"errors.description\" class=\"form-input-error\">{{ errors.description }}</span>\n                <textarea class=\"form-control\" v-model=\"model.description\" placeholder=\"optional\"></textarea>\n            </div>\n\n            <div class=\"form-group\" v-if=\"isTagsEnabled()\">\n                <label>Tags</label>\n                <v-select multiple=\"\" :debounce=\"250\" :on-search=\"getTags\" :options.sync=\"tags\" :value.sync=\"model.tags\" placeholder=\"Tags...\" label=\"name\">\n                </v-select>\n            </div>\n\n            <div v-if=\"model.id &amp;&amp; isCategoriesEnabled()\" class=\"form-group\" v-bind:class=\"{ 'has-error' : errors.categories }\">\n                <span v-if=\"errors.categories\" class=\"form-input-error\">{{ errors.categories }}</span>\n                <div>\n                    <label>Categories</label>\n                    <v-select multiple=\"\" :debounce=\"250\" :on-search=\"getCategories\" :options.sync=\"categories\" :value.sync=\"model.categories\" placeholder=\"Categories...\" label=\"name\">\n                    </v-select>\n                </div>\n            </div>\n\n            <h3 v-if=\"model.relations\">Relational Data</h3>\n\n            <div class=\"form-group\" v-for=\"relation in model.relations\">\n                <label>{{ relation.label }}</label>\n                <v-select :multiple=\"relation.multiple\" :options=\"relation.options\" :value.sync=\"model[relation.name]\" label=\"name\"></v-select>\n            </div>\n\n            <div v-bind:class=\"{ 'has-error' : errors.text }\" class=\"form-group\">\n                <button type=\"submit\" @click=\"setState('draft')\" class=\"btn btn-primary\">Draft</button>\n                <button type=\"submit\" @click=\"setState('published')\" class=\"btn btn-success\">Publish</button>\n            </div>\n        </div>\n    </div>\n\n</form>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -464,9 +484,15 @@ exports.default = {
         load: function load(categoryId) {
             var _this = this;
 
-            this.$http.get('/cmsify/api/categories/' + categoryId + '/posts').then(function (r) {
-                _this.posts = r.data;
-            });
+            if (parseInt(categoryId)) {
+                this.$http.get('/cmsify/api/categories/' + categoryId + '/posts').then(function (r) {
+                    _this.posts = r.data;
+                });
+            } else {
+                this.$http.get('/cmsify/api/posts').then(function (r) {
+                    _this.posts = r.data;
+                });
+            }
         },
         destroy: function destroy(post) {
             var _this2 = this;
