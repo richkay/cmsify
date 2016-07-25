@@ -1,7 +1,7 @@
 <?php namespace Cmsify\Controllers;
 
-use Cmsify\Jobs\PostPreserveJob;
 use Cmsify\Post;
+use Cmsify\Jobs\PostPreserveJob;
 use Cmsify\Jobs\PostDeleteJob;
 use App\Http\Controllers\Controller;
 use Cmsify\Requests\PostFormRequest;
@@ -17,18 +17,19 @@ class PostsController extends Controller
      * @param Post $post
      * @return Response
      */
-    public function index($categoryId = null, Post $post)
+    public function index(Post $post, $categoryId = null)
     {
-        $categoryId = (int) $categoryId;
+        $query = $post->newQuery();
+        $categoryId = (int)$categoryId;
         if ($categoryId)
         {
-            $post->whereHas('categories', function ($q) use ($categoryId)
+            $query->whereHas('categories', function ($q) use ($categoryId)
             {
                 $q->where('category_id', $categoryId);
             });
         }
 
-        return $post->get()->all();
+        return $query->get()->all();
     }
 
     /**

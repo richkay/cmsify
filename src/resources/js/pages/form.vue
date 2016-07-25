@@ -58,6 +58,10 @@
 
         methods: {
 
+            isCategoriesEnabled() {
+                return ! window.categoriesDisabled;
+            },
+
             initTextEditor() {
                 var vm = this;
                 if (typeof(initSummernote) == 'function') {
@@ -132,7 +136,7 @@
 
                 <!-- Text Form Input -->
                 <div v-bind:class="{ 'has-error' : errors.text }" class="form-group">
-                    <label for="text">Text</label>
+                    <label for="posts-text">Text</label>
                     <span v-if="errors.text" class="form-input-error">{{ errors.text }}</span>
                     <textarea name="posts-text"
                               class="form-control Summernote"
@@ -175,9 +179,9 @@
                     </v-select>
                 </div>
 
-                <div class="form-group" v-bind:class="{ 'has-error' : errors.categories }">
+                <div v-if="model.id && isCategoriesEnabled()" class="form-group" v-bind:class="{ 'has-error' : errors.categories }">
                     <span v-if="errors.categories" class="form-input-error">{{ errors.categories }}</span>
-                    <div v-if="model.id">
+                    <div>
                         <label>Categories</label>
                         <v-select multiple
                                   :debounce="250"

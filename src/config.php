@@ -26,7 +26,7 @@ return [
     ],
 
     "categories" => [
-        "disabled" => false,
+        "disabled" => 'huhu',
         "maxLevel" => 2,
     ],
 

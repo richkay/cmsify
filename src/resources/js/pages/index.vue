@@ -21,9 +21,15 @@
         methods: {
 
             load(categoryId) {
-                this.$http.get('/cmsify/api/categories/' + categoryId + '/posts').then(r => {
-                    this.posts = r.data;
-                });
+                if (parseInt(categoryId)) {
+                    this.$http.get('/cmsify/api/categories/' + categoryId + '/posts').then(r => {
+                        this.posts = r.data;
+                    });
+                } else {
+                    this.$http.get('/cmsify/api/posts').then(r => {
+                        this.posts = r.data;
+                    });
+                }
             },
 
             destroy(post) {

@@ -98,7 +98,8 @@ class PostPreserveJob extends Job implements SelfHandling
         {
             $post->tags()->sync(array_pluck($this->request->get('tags'), 'id'));
         }
-        if (is_array($this->request->get('categories')))
+
+        if ( ! config('cmsify.categories.disbaled') && is_array($this->request->get('categories')))
         {
             $post->categories()->sync(array_pluck($this->request->get('categories', []), 'id'));
         }

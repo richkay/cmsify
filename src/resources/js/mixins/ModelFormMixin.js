@@ -13,7 +13,7 @@ export default {
 
             var endpoint = this.getEndpoint();
 
-            if(this.model.id) {
+            if (this.model.id) {
                 var method = 'put';
                 endpoint += '/' + this.model.id;
             } else {
@@ -22,8 +22,14 @@ export default {
 
             this.$http[method](endpoint, this.model).then(r => {
                 this.afterSave(r)
+                if (r.data.state == 'published') {
+                    toastr.success('Post Published!');
+                } else {
+                    toastr.info('Post Saved!');
+                }
             }).catch((r) => {
                 this.errors = r.data;
+                toastr.error('Post couldnt Saved...');
             });
 
 

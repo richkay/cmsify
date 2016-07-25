@@ -13,6 +13,7 @@
 </div>
 
 @include('cmsify::partials.summernote-script')
+@include('cmsify::partials.cmsify-js-config')
 
 <script src="/js/cmsify_vendor.js"></script>
 <script src="/js/cmsify.js"></script>

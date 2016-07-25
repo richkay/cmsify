@@ -1,7 +1,7 @@
 <script type="text/javascript">
     function initSummernote() {
         return $('.Summernote').summernote({
-            height: 400,
+            height: 200,
             callbacks: {
                 onImageUpload: function (files) {
                     sendFile(files[0], $(this), $(this)[0].name);
