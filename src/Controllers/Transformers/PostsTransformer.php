@@ -15,6 +15,8 @@ class PostsTransformer extends AbstractTransformer
             'description' => $item['description'],
             'tags' => $item->tags,
             'categories' => $item->categories,
+            'created_at' => (string) $item->created_at,
+            'updated_at' => (string) $item->updated_at,
         ];
 
         if (config('cmsify.permissions.onlyCreatorCanEdit'))

@@ -13,8 +13,9 @@ class PostsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param $categoryId
      * @param Post $post
+     * @param PostsTransformer $postsTransformer
+     * @param $categoryId
      * @return Response
      */
     public function index(Post $post, PostsTransformer $postsTransformer, $categoryId = null)
@@ -29,7 +30,7 @@ class PostsController extends Controller
             });
         }
 
-        return $postsTransformer->transformCollection($query->get()->all());
+        return $postsTransformer->transformCollection($query->orderby('updated_at', 'DESC')->get()->all());
     }
 
     /**
