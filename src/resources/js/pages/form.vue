@@ -62,6 +62,10 @@
                 return ! window.categoriesDisabled;
             },
 
+            isTagsEnabled() {
+                return ! window.tagsDisabled;
+            },
+
             initTextEditor() {
                 var vm = this;
                 if (typeof(initSummernote) == 'function') {

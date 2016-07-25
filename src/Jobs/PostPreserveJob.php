@@ -94,7 +94,7 @@ class PostPreserveJob extends Job implements SelfHandling
      */
     protected function syncRelations(Post $post)
     {
-        if (is_array($this->request->get('tags')))
+        if (! config('cmsify.tags.disbaled') && is_array($this->request->get('tags')))
         {
             $post->tags()->sync(array_pluck($this->request->get('tags'), 'id'));
         }
