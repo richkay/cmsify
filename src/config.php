@@ -28,8 +28,8 @@ return [
     ],
 
     "permissions" => [
-        'onlyCreatorCanEdit' => true,
-        'onlyCreatorCanDelete' => true,
+        'onlyCreatorCanEdit' => false,
+        'onlyCreatorCanDelete' => false,
     ],
 
     // !TODO: its just for dev purpose, must delete or replace with some useful relation
