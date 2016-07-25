@@ -3,6 +3,10 @@
 return [
 
     // !TODO: specify middleware and base route name (cmsify) here
+    "routing" => [
+        'prefix' => 'cmsify',
+        'middleware' => null // 'auth',
+    ],
 
     // !TODO: implement configs
     "images" => [

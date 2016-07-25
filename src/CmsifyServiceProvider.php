@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Cmsify;
 
@@ -12,14 +12,14 @@ class CmsifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'cmsify');
-        
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'cmsify');
+
         $this->publishes([
             __DIR__ . '/config.php' => config_path('cmsify.php'),
         ], 'config');
 
         $this->publishes([
-            __DIR__.'/database/migrations/' => database_path('migrations')
+            __DIR__ . '/database/migrations/' => database_path('migrations')
         ], 'migrations');
 
         $this->publishes([
@@ -30,7 +30,7 @@ class CmsifyServiceProvider extends ServiceProvider
         ], 'public');
 
         $this->publishes([
-            __DIR__.'/resources/views' => base_path('resources/views/vendor/cmsify'),
+            __DIR__ . '/resources/views' => base_path('resources/views/vendor/cmsify'),
         ], 'views');
     }
 
@@ -46,13 +46,18 @@ class CmsifyServiceProvider extends ServiceProvider
         );
 
         $this->app->router->group(
-            ['namespace' => 'Cmsify\Controllers', 'prefix' => 'cmsify', 'middleware' => 'auth']
+            [
+                'namespace' => 'Cmsify\Controllers',
+                'prefix' => config('cmsify.routing.prefix'),
+                'middleware' => config('cmsify.routing.middleware')
+            ]
             , function ()
         {
             require_once 'routes.php';
         });
 
-        $this->app->bind(Post::class, function() {
+        $this->app->bind(Post::class, function ()
+        {
             $class = config('cmsify.models.post.class');
             return new $class();
         });
