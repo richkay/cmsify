@@ -2,23 +2,7 @@
 
 return [
 
-    "permissions" => [
-        'onlyCreatorCanEdit' => true,
-        'onlyCreatorCanDelete' => true,
-    ],
-
-    // !TODO: its just for dev purpose, must delete or replace with some useful relation
-    "models" => [
-        "post" => [
-            "class" => App\Post::class,
-            "relations" => [
-                'locations' => [
-                    'label' => 'Locations',
-                    'multiple' => true,
-                ]
-            ]
-        ]
-    ],
+    // !TODO: specify middleware and base route name (cmsify) here
 
     // !TODO: implement configs
     "images" => [
@@ -38,5 +22,29 @@ return [
     "tags" => [
         "disabled" => false
     ],
+
+    "permissions" => [
+        'onlyCreatorCanEdit' => true,
+        'onlyCreatorCanDelete' => true,
+    ],
+
+    // !TODO: its just for dev purpose, must delete or replace with some useful relation
+
+    /**
+     * If you want to relate data in a many-many or one-one relation.
+     * Than create a own model that extends the Cmsify\Post class,
+     * specify the class an its relations like the example below
+     */
+    //    "models" => [
+    //        "post" => [
+    //            "class" => App\Post::class,
+    //            "relations" => [
+    //                'locations' => [
+    //                    'label' => 'Locations',
+    //                    'multiple' => true,
+    //                ]
+    //            ]
+    //        ]
+    //    ],
 
 ];
