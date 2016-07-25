@@ -170,7 +170,7 @@
                     ></textarea>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" v-if="isTagsEnabled()">
                     <label>Tags</label>
                     <v-select multiple
                               :debounce="250"
