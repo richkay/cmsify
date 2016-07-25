@@ -109,6 +109,14 @@
     }
 </script>
 
+<style>
+
+    div.searchable {
+        background: white !important;
+    }
+
+</style>
+
 <template>
 
     <div class="row">

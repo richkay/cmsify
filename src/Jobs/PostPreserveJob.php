@@ -1,6 +1,7 @@
 <?php namespace Cmsify\Jobs;
 
 use App\Jobs\Job;
+use Cmsify\PermissionDeniedException;
 use Cmsify\Post;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Http\Request;
@@ -42,12 +43,17 @@ class PostPreserveJob extends Job implements SelfHandling
     /**
      * @param Post $post
      * @return Post
+     * @throws PermissionDeniedException
      */
     protected function preservePost(Post $post)
     {
         if ($this->id)
         {
             $post = $post->findOrFail($this->id);
+            if ($post->user_id != $this->request->user()->id)
+            {
+                throw new PermissionDeniedException();
+            }
             $post->slug = $this->request->get('slug');
         } else
         {
@@ -94,7 +100,7 @@ class PostPreserveJob extends Job implements SelfHandling
      */
     protected function syncRelations(Post $post)
     {
-        if (! config('cmsify.tags.disbaled') && is_array($this->request->get('tags')))
+        if ( ! config('cmsify.tags.disbaled') && is_array($this->request->get('tags')))
         {
             $post->tags()->sync(array_pluck($this->request->get('tags'), 'id'));
         }

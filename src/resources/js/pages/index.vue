@@ -72,15 +72,26 @@
                         </thead>
                         <tbody>
                         <tr v-for="post in posts">
-                            <td>{{ post.id }}</td>
-                            <td>{{ post.title }}</td>
+                            <td>{{ post.id }}
+                                <label class="label label-success" v-if="post.state == 'published'">published</label>
+                                <label class="label label-primary" v-else>draft</label>
+                            </td>
+                            <td>
+                                {{ post.title }}
+                            </td>
                             <td>{{ post.created_at | moment 'YYYY-DD-MM h:mm' }}</td>
                             <td>{{ post.updated_at | moment 'YYYY-DD-MM h:mm' }}</td>
                             <td class="text-right">
-                                <a v-link="{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}"
+                                <a v-if="post.canEdit" v-link="{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}"
                                    class="btn btn-primary"
                                 ><i class="fa fa-edit"></i> </a>
-                                <button @click="destroy(post)" class="btn btn-danger"><i class="fa fa-remove"></i>
+                                <button disabled v-else class="btn btn-primary"><i class="fa fa-edit"></i> </button>
+
+
+                                <button v-if="post.canDelete" @click="destroy(post)" class="btn btn-danger"><i class="fa fa-remove"></i>
+                                <button v-else="post.canEdit" disabled class="btn btn-danger"><i class="fa fa-remove"></i>
+
+
                                 </button>
                             </td>
                         </tr>

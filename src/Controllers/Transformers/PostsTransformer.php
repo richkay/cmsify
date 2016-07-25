@@ -17,6 +17,18 @@ class PostsTransformer extends AbstractTransformer
             'categories' => $item->categories,
         ];
 
+        if (config('cmsify.permissions.onlyCreatorCanEdit'))
+        {
+            $response['canEdit'] = auth()->user()->id == $item->user_id;
+        }
+
+        if (config('cmsify.permissions.onlyCreatorCanDelete'))
+        {
+            $response['canDelete'] = auth()->user()->id == $item->user_id;
+        }
+
+        $response['canEdit'] = auth()->user()->id == $item->user_id;
+
         $response = $this->appendCustomRelations($item, $response);
 
         return $response;

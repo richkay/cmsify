@@ -17,7 +17,7 @@ class PostsController extends Controller
      * @param Post $post
      * @return Response
      */
-    public function index(Post $post, $categoryId = null)
+    public function index(Post $post, PostsTransformer $postsTransformer, $categoryId = null)
     {
         $query = $post->newQuery();
         $categoryId = (int)$categoryId;
@@ -29,7 +29,7 @@ class PostsController extends Controller
             });
         }
 
-        return $query->get()->all();
+        return $postsTransformer->transformCollection($query->get()->all());
     }
 
     /**
