@@ -16,12 +16,6 @@
 
     <div class="container">
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h1>CMSify</h1>
-            </div>
-        </div>
-
         <div class="row" v-if="isCategoriesEnabled()">
             <div class="col-xs-4 col-md-3">
                 <div>
@@ -40,8 +34,8 @@
             </div>
         </div>
 
-        <hr>
-        <pre>{{ $route.params | json }}</pre>
+        <!--<hr>-->
+        <!--<pre>{{ $route.params | json }}</pre>-->
 
     </div>
 </template>

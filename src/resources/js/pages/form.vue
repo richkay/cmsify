@@ -59,11 +59,11 @@
         methods: {
 
             isCategoriesEnabled() {
-                return ! window.categoriesDisabled;
+                return !window.categoriesDisabled;
             },
 
             isTagsEnabled() {
-                return ! window.tagsDisabled;
+                return !window.tagsDisabled;
             },
 
             initTextEditor() {
@@ -110,6 +110,12 @@
 </script>
 
 <template>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+            <a v-link="{ name : 'pages', params: { categoryId : $route.params.categoryId } }" class="btn btn-default">Overview</a>
+        </div>
+    </div>
 
     <form @submit.prevent="save()">
 
@@ -183,7 +189,8 @@
                     </v-select>
                 </div>
 
-                <div v-if="model.id && isCategoriesEnabled()" class="form-group" v-bind:class="{ 'has-error' : errors.categories }">
+                <div v-if="model.id && isCategoriesEnabled()" class="form-group"
+                     v-bind:class="{ 'has-error' : errors.categories }">
                     <span v-if="errors.categories" class="form-input-error">{{ errors.categories }}</span>
                     <div>
                         <label>Categories</label>
