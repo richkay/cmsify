@@ -82,14 +82,21 @@
                             <td>{{ post.created_at | moment 'YYYY-DD-MM h:mm' }}</td>
                             <td>{{ post.updated_at | moment 'YYYY-DD-MM h:mm' }}</td>
                             <td class="text-right">
-                                <a v-if="post.canEdit" v-link="{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}"
+
+                                <a class="btn btn-default"
+                                   v-link="{name : 'page_show', params : {categoryId : $route.params.categoryId, id: post.id }}"
+                                ><i class="fa fa-list"></i></a>
+
+                                <!--Edit button-->
+                                <a v-if="post.canEdit"
+                                   v-link="{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}"
                                    class="btn btn-primary"
-                                ><i class="fa fa-edit"></i> </a>
-                                <button disabled v-else class="btn btn-primary"><i class="fa fa-edit"></i> </button>
+                                ><i class="fa fa-edit"></i></a>
+                                <button disabled v-else class="btn btn-primary"><i class="fa fa-edit"></i></button>
 
-
+                                <!--Remove Button-->
                                 <button v-if="post.canDelete" @click="destroy(post)" class="btn btn-danger"><i class="fa fa-remove"></i>
-                                <button v-else="post.canEdit" disabled class="btn btn-danger"><i class="fa fa-remove"></i>
+                                <button v-else disabled class="btn btn-danger"><i class="fa fa-remove"></i>
 
 
                                 </button>

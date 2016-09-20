@@ -26,7 +26,7 @@ class PostFormRequest extends Request
         return [
             'title' => 'required|min:3',
             'text' => 'required',
-            'slug' => 'required_with:id|unique:cmsify_posts,slug,'.$this->get('id'),
+            'slug' => 'required_with:id|unique:cmsify_posts,slug,' . $this->get('id'),
             'categories' => config('cmsify.categories.disabled') ? '' : 'required',
         ];
     }

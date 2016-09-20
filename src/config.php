@@ -8,7 +8,6 @@ return [
         'middleware' => null // 'auth',
     ],
 
-    // !TODO: implement configs
     "images" => [
         'maxfilesize' => 2000,
         'maxheight' => 800,
@@ -19,7 +18,7 @@ return [
     ],
 
     "categories" => [
-        "disabled" => 'huhu',
+        "disabled" => false,
         "maxLevel" => 2,
     ],
 
@@ -33,7 +32,6 @@ return [
     ],
 
     // !TODO: its just for dev purpose, must delete or replace with some useful relation
-
     /**
      * If you want to relate data in a many-many or one-one relation.
      * Than create a own model that extends the Cmsify\Post class,

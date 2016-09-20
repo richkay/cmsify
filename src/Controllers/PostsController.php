@@ -34,6 +34,17 @@ class PostsController extends Controller
     }
 
     /**
+     * @param PostsTransformer $postsTransformer
+     * @param Post $post
+     * @param $id
+     * @return Response
+     */
+    public function show(PostsTransformer $postsTransformer, Post $post, $id)
+    {
+        return $postsTransformer->transform($post->findOrFail($id));
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param PostsTransformer $postsTransformer
@@ -58,15 +69,13 @@ class PostsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
      * @param PostsTransformer $postsTransformer
+     * @param Post $post
      * @param $id
      * @return Response
      */
-    public function show(PostsTransformer $postsTransformer, $id)
+    public function edit(PostsTransformer $postsTransformer, Post $post, $id)
     {
-        $post = app(Post::class);
         return $postsTransformer->transform($post->findOrFail($id));
     }
 
@@ -80,9 +89,7 @@ class PostsController extends Controller
      */
     public function update(PostsTransformer $postsTransformer, PostFormRequest $request, $id)
     {
-        return $postsTransformer->transform(
-            $this->dispatch(new PostPreserveJob($request, $id))
-        );
+        return $postsTransformer->transform($this->dispatch(new PostPreserveJob($request, $id)));
     }
 
     /**

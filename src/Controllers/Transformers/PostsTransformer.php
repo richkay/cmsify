@@ -15,21 +15,21 @@ class PostsTransformer extends AbstractTransformer
             'description' => $item['description'],
             'tags' => $item->tags,
             'categories' => $item->categories,
-            'created_at' => (string) $item->created_at,
-            'updated_at' => (string) $item->updated_at,
+            'created_at' => (string)$item->created_at,
+            'updated_at' => (string)$item->updated_at,
+            'canEdit' => true,
+            'canDelete' => true,
         ];
 
-        if (config('cmsify.permissions.onlyCreatorCanEdit'))
+        if (config('cmsify.permissions.onlyCreatorCanEdit') === true)
         {
             $response['canEdit'] = auth()->user()->id == $item->user_id;
         }
 
-        if (config('cmsify.permissions.onlyCreatorCanDelete'))
+        if (config('cmsify.permissions.onlyCreatorCanDelete') === true)
         {
             $response['canDelete'] = auth()->user()->id == $item->user_id;
         }
-
-        $response['canEdit'] = auth()->user()->id == $item->user_id;
 
         $response = $this->appendCustomRelations($item, $response);
 

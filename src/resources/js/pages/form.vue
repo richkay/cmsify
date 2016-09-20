@@ -28,7 +28,7 @@
             vm.model.categories = [];
 
             if (parseInt(vm.$route.params.id)) {
-                vm.$http.get('/cmsify/api/posts/' + vm.$route.params.id).then(r => {
+                vm.$http.get('/cmsify/api/posts/' + vm.$route.params.id + '/edit').then(r => {
                     vm.model = r.data;
                     vm.tags = r.data.tags;
                     vm.categories = r.data.categories;
@@ -113,6 +113,10 @@
 
     div.searchable {
         background: white !important;
+    }
+
+    .form-input-error {
+        color: red;
     }
 
 </style>
@@ -233,11 +237,3 @@
 
     </form>
 </template>
-
-<style>
-
-    .form-input-error {
-        color: red;
-    }
-
-</style>

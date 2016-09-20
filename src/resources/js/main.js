@@ -56,6 +56,10 @@ router.map({
                 name: 'page_index',
                 component: require('./pages/index.vue')
             },
+            '/show/:id': {
+                name: 'page_show',
+                component: require('./pages/show.vue')
+            },
             '/create': {
                 name: 'page_create',
                 component: require('./pages/form.vue')
