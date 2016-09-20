@@ -17,7 +17,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-75824622", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":114,"vue-hot-reload-api":110}],2:[function(require,module,exports){
+},{"vue":115,"vue-hot-reload-api":111}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44,7 +44,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-dca9bdc2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":114,"vue-hot-reload-api":110}],3:[function(require,module,exports){
+},{"vue":115,"vue-hot-reload-api":111}],3:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
 var __vueify_style__ = __vueify_insert__.insert("\n\nul {\n    font-size: 15px;\n    list-style: none;\n    padding-right: 3px;\n    border-left: 1px solid #ccc;\n    padding-left: 10px;\n}\n\nul > li {\n    padding:0px;\n    margin:0px;\n}\n\n")
 'use strict';
@@ -188,7 +188,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-717b4fa6", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":114,"vue-hot-reload-api":110,"vueify/lib/insert-css":115}],4:[function(require,module,exports){
+},{"vue":115,"vue-hot-reload-api":111,"vueify/lib/insert-css":116}],4:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -261,6 +261,10 @@ router.map({
                 name: 'page_index',
                 component: require('./pages/index.vue')
             },
+            '/show/:id': {
+                name: 'page_show',
+                component: require('./pages/show.vue')
+            },
             '/create': {
                 name: 'page_create',
                 component: require('./pages/form.vue')
@@ -275,7 +279,7 @@ router.map({
 
 router.start(App, '#cmsify');
 
-},{"./DashboardView.vue":1,"./PagesView.vue":2,"./components/Category.vue":3,"./pages/form.vue":6,"./pages/index.vue":7,"momentjs":108,"vue":114,"vue-resource":111,"vue-router":112}],5:[function(require,module,exports){
+},{"./DashboardView.vue":1,"./PagesView.vue":2,"./components/Category.vue":3,"./pages/form.vue":6,"./pages/index.vue":7,"./pages/show.vue":8,"momentjs":109,"vue":115,"vue-resource":112,"vue-router":113}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -330,7 +334,7 @@ exports.default = {
 
 },{}],6:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
-var __vueify_style__ = __vueify_insert__.insert("\n\ndiv.searchable {\n    background: white !important;\n}\n\n\n\n\n.form-input-error {\n    color: red;\n}\n\n")
+var __vueify_style__ = __vueify_insert__.insert("\n\ndiv.searchable {\n    background: white !important;\n}\n\n.form-input-error {\n    color: red;\n}\n\n")
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -371,7 +375,7 @@ exports.default = {
         vm.model.categories = [];
 
         if (parseInt(vm.$route.params.id)) {
-            vm.$http.get('/cmsify/api/posts/' + vm.$route.params.id).then(function (r) {
+            vm.$http.get('/cmsify/api/posts/' + vm.$route.params.id + '/edit').then(function (r) {
                 vm.model = r.data;
                 vm.tags = r.data.tags;
                 vm.categories = r.data.categories;
@@ -449,7 +453,7 @@ if (module.hot) {(function () {  module.hot.accept()
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.dispose(function () {
-    __vueify_insert__.cache["\n\ndiv.searchable {\n    background: white !important;\n}\n\n\n\n\n.form-input-error {\n    color: red;\n}\n\n"] = false
+    __vueify_insert__.cache["\n\ndiv.searchable {\n    background: white !important;\n}\n\n.form-input-error {\n    color: red;\n}\n\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -458,7 +462,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-1d2ef069", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../mixins/ModelFormMixin":5,"vue":114,"vue-hot-reload-api":110,"vue-select":113,"vueify/lib/insert-css":115}],7:[function(require,module,exports){
+},{"../mixins/ModelFormMixin":5,"vue":115,"vue-hot-reload-api":111,"vue-select":114,"vueify/lib/insert-css":116}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -505,7 +509,7 @@ exports.default = {
 
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div>\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right\">\n            <a v-link=\"{name : 'page_create', params : {categoryId : $route.params.categoryId }}\" class=\"btn btn-primary\">Create Post</a>\n        </div>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <div class=\"table-responsive\">\n                <table class=\"table table-hover\">\n                    <thead>\n                    <tr>\n                        <th>#</th>\n                        <th>Title</th>\n                        <th>Created</th>\n                        <th>Updated</th>\n                        <th></th>\n                    </tr>\n                    </thead>\n                    <tbody>\n                    <tr v-for=\"post in posts\">\n                        <td>{{ post.id }}\n                            <label class=\"label label-success\" v-if=\"post.state == 'published'\">published</label>\n                            <label class=\"label label-primary\" v-else=\"\">draft</label>\n                        </td>\n                        <td>\n                            {{ post.title }}\n                        </td>\n                        <td>{{ post.created_at | moment 'YYYY-DD-MM h:mm' }}</td>\n                        <td>{{ post.updated_at | moment 'YYYY-DD-MM h:mm' }}</td>\n                        <td class=\"text-right\">\n                            <a v-if=\"post.canEdit\" v-link=\"{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> </a>\n                            <button disabled=\"\" v-else=\"\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> </button>\n\n\n                            <button v-if=\"post.canDelete\" @click=\"destroy(post)\" class=\"btn btn-danger\"><i class=\"fa fa-remove\"></i>\n                            </button><button v-else=\"post.canEdit\" disabled=\"\" class=\"btn btn-danger\"><i class=\"fa fa-remove\"></i>\n\n\n                            </button>\n                        </td>\n                    </tr>\n                    </tbody>\n                </table>\n            </div>\n        </div>\n    </div>\n\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div>\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right\">\n            <a v-link=\"{name : 'page_create', params : {categoryId : $route.params.categoryId }}\" class=\"btn btn-primary\">Create Post</a>\n        </div>\n    </div>\n\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <div class=\"table-responsive\">\n                <table class=\"table table-hover\">\n                    <thead>\n                    <tr>\n                        <th>#</th>\n                        <th>Title</th>\n                        <th>Created</th>\n                        <th>Updated</th>\n                        <th></th>\n                    </tr>\n                    </thead>\n                    <tbody>\n                    <tr v-for=\"post in posts\">\n                        <td>{{ post.id }}\n                            <label class=\"label label-success\" v-if=\"post.state == 'published'\">published</label>\n                            <label class=\"label label-primary\" v-else=\"\">draft</label>\n                        </td>\n                        <td>\n                            {{ post.title }}\n                        </td>\n                        <td>{{ post.created_at | moment 'YYYY-DD-MM h:mm' }}</td>\n                        <td>{{ post.updated_at | moment 'YYYY-DD-MM h:mm' }}</td>\n                        <td class=\"text-right\">\n\n                            <a class=\"btn btn-default\" v-link=\"{name : 'page_show', params : {categoryId : $route.params.categoryId, id: post.id }}\"><i class=\"fa fa-list\"></i></a>\n\n                            <!--Edit button-->\n                            <a v-if=\"post.canEdit\" v-link=\"{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></a>\n                            <button disabled=\"\" v-else=\"\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button>\n\n                            <!--Remove Button-->\n                            <button v-if=\"post.canDelete\" @click=\"destroy(post)\" class=\"btn btn-danger\"><i class=\"fa fa-remove\"></i>\n                            </button><button v-else=\"\" disabled=\"\" class=\"btn btn-danger\"><i class=\"fa fa-remove\"></i>\n\n\n                            </button>\n                        </td>\n                    </tr>\n                    </tbody>\n                </table>\n            </div>\n        </div>\n    </div>\n\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -516,33 +520,92 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-21615e06", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":114,"vue-hot-reload-api":110}],8:[function(require,module,exports){
+},{"vue":115,"vue-hot-reload-api":111}],8:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("\n\n.Relations__Item {\n    margin-right:3px;\n}\n\n")
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _ModelFormMixin = require('../mixins/ModelFormMixin');
+
+var _ModelFormMixin2 = _interopRequireDefault(_ModelFormMixin);
+
+var _vueSelect = require('vue-select');
+
+var _vueSelect2 = _interopRequireDefault(_vueSelect);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+
+    components: {},
+
+    data: function data() {
+        return {
+            model: {}
+        };
+    },
+    ready: function ready() {
+
+        var vm = this;
+
+        if (parseInt(vm.$route.params.id)) {
+            vm.$http.get('/cmsify/api/posts/' + vm.$route.params.id).then(function (r) {
+                vm.model = r.data;
+            });
+        } else {}
+    },
+
+
+    methods: {}
+
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"row\">\n    <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right\">\n        <a v-link=\"{ name : 'pages', params: { categoryId : $route.params.categoryId } }\" class=\"btn btn-default\">Overview</a>\n    </div>\n</div>\n\n\n<div class=\"row\">\n    <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n\n        <h2>{{ model.title }}</h2>\n\n        <p align=\"right\">{{ model.updated_at }}</p>\n\n        <p>{{{ model.text }}}</p>\n\n        <div v-if=\"model.tags &amp;&amp; model.tags.length > 0\">\n            <strong>Tags</strong>:<br>\n            <span class=\"label label-default Relations__Item\" v-for=\"tag in model.tags\">{{ tag.name }}</span>\n        </div>\n\n        <div v-if=\"model.categories &amp;&amp; model.categories.length > 0\">\n            <strong>Categories</strong>:<br>\n            <span class=\"label label-default Relations__Item\" v-for=\"category in model.categories\">{{ category.name }}</span>\n        </div>\n\n        <div v-for=\"relation in model.relations\">\n\n            <div v-if=\"model[relation.name] &amp;&amp; model[relation.name].length > 0\">\n                <strong>{{ relation.label }}</strong>:<br>\n                <span class=\"label label-default Relations__Item\" v-for=\"item in model[relation.name]\">{{ item.name }}</span>\n            </div>\n\n        </div>\n\n    </div>\n</div>\n\n<pre>{{ model | json }}</pre>\n\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["\n\n.Relations__Item {\n    margin-right:3px;\n}\n\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-267e0bbc", module.exports)
+  } else {
+    hotAPI.update("_v-267e0bbc", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../mixins/ModelFormMixin":5,"vue":115,"vue-hot-reload-api":111,"vue-select":114,"vueify/lib/insert-css":116}],9:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/json/stringify"), __esModule: true };
-},{"core-js/library/fn/json/stringify":22}],9:[function(require,module,exports){
+},{"core-js/library/fn/json/stringify":23}],10:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };
-},{"core-js/library/fn/object/create":23}],10:[function(require,module,exports){
+},{"core-js/library/fn/object/create":24}],11:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/define-properties"), __esModule: true };
-},{"core-js/library/fn/object/define-properties":24}],11:[function(require,module,exports){
+},{"core-js/library/fn/object/define-properties":25}],12:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
-},{"core-js/library/fn/object/define-property":25}],12:[function(require,module,exports){
+},{"core-js/library/fn/object/define-property":26}],13:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-own-property-descriptor"), __esModule: true };
-},{"core-js/library/fn/object/get-own-property-descriptor":26}],13:[function(require,module,exports){
+},{"core-js/library/fn/object/get-own-property-descriptor":27}],14:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-own-property-names"), __esModule: true };
-},{"core-js/library/fn/object/get-own-property-names":27}],14:[function(require,module,exports){
+},{"core-js/library/fn/object/get-own-property-names":28}],15:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-own-property-symbols"), __esModule: true };
-},{"core-js/library/fn/object/get-own-property-symbols":28}],15:[function(require,module,exports){
+},{"core-js/library/fn/object/get-own-property-symbols":29}],16:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/get-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/get-prototype-of":29}],16:[function(require,module,exports){
+},{"core-js/library/fn/object/get-prototype-of":30}],17:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/is-extensible"), __esModule: true };
-},{"core-js/library/fn/object/is-extensible":30}],17:[function(require,module,exports){
+},{"core-js/library/fn/object/is-extensible":31}],18:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/keys"), __esModule: true };
-},{"core-js/library/fn/object/keys":31}],18:[function(require,module,exports){
+},{"core-js/library/fn/object/keys":32}],19:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/object/prevent-extensions"), __esModule: true };
-},{"core-js/library/fn/object/prevent-extensions":32}],19:[function(require,module,exports){
+},{"core-js/library/fn/object/prevent-extensions":33}],20:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol"), __esModule: true };
-},{"core-js/library/fn/symbol":33}],20:[function(require,module,exports){
+},{"core-js/library/fn/symbol":34}],21:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/symbol/iterator"), __esModule: true };
-},{"core-js/library/fn/symbol/iterator":34}],21:[function(require,module,exports){
+},{"core-js/library/fn/symbol/iterator":35}],22:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -564,81 +627,81 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 } : function (obj) {
   return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
 };
-},{"../core-js/symbol":19,"../core-js/symbol/iterator":20}],22:[function(require,module,exports){
+},{"../core-js/symbol":20,"../core-js/symbol/iterator":21}],23:[function(require,module,exports){
 var core  = require('../../modules/_core')
   , $JSON = core.JSON || (core.JSON = {stringify: JSON.stringify});
 module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
   return $JSON.stringify.apply($JSON, arguments);
 };
-},{"../../modules/_core":40}],23:[function(require,module,exports){
+},{"../../modules/_core":41}],24:[function(require,module,exports){
 require('../../modules/es6.object.create');
 var $Object = require('../../modules/_core').Object;
 module.exports = function create(P, D){
   return $Object.create(P, D);
 };
-},{"../../modules/_core":40,"../../modules/es6.object.create":93}],24:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.create":94}],25:[function(require,module,exports){
 require('../../modules/es6.object.define-properties');
 var $Object = require('../../modules/_core').Object;
 module.exports = function defineProperties(T, D){
   return $Object.defineProperties(T, D);
 };
-},{"../../modules/_core":40,"../../modules/es6.object.define-properties":94}],25:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.define-properties":95}],26:[function(require,module,exports){
 require('../../modules/es6.object.define-property');
 var $Object = require('../../modules/_core').Object;
 module.exports = function defineProperty(it, key, desc){
   return $Object.defineProperty(it, key, desc);
 };
-},{"../../modules/_core":40,"../../modules/es6.object.define-property":95}],26:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.define-property":96}],27:[function(require,module,exports){
 require('../../modules/es6.object.get-own-property-descriptor');
 var $Object = require('../../modules/_core').Object;
 module.exports = function getOwnPropertyDescriptor(it, key){
   return $Object.getOwnPropertyDescriptor(it, key);
 };
-},{"../../modules/_core":40,"../../modules/es6.object.get-own-property-descriptor":96}],27:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.get-own-property-descriptor":97}],28:[function(require,module,exports){
 require('../../modules/es6.object.get-own-property-names');
 var $Object = require('../../modules/_core').Object;
 module.exports = function getOwnPropertyNames(it){
   return $Object.getOwnPropertyNames(it);
 };
-},{"../../modules/_core":40,"../../modules/es6.object.get-own-property-names":97}],28:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.get-own-property-names":98}],29:[function(require,module,exports){
 require('../../modules/es6.symbol');
 module.exports = require('../../modules/_core').Object.getOwnPropertySymbols;
-},{"../../modules/_core":40,"../../modules/es6.symbol":104}],29:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.symbol":105}],30:[function(require,module,exports){
 require('../../modules/es6.object.get-prototype-of');
 module.exports = require('../../modules/_core').Object.getPrototypeOf;
-},{"../../modules/_core":40,"../../modules/es6.object.get-prototype-of":98}],30:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.get-prototype-of":99}],31:[function(require,module,exports){
 require('../../modules/es6.object.is-extensible');
 module.exports = require('../../modules/_core').Object.isExtensible;
-},{"../../modules/_core":40,"../../modules/es6.object.is-extensible":99}],31:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.is-extensible":100}],32:[function(require,module,exports){
 require('../../modules/es6.object.keys');
 module.exports = require('../../modules/_core').Object.keys;
-},{"../../modules/_core":40,"../../modules/es6.object.keys":100}],32:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.keys":101}],33:[function(require,module,exports){
 require('../../modules/es6.object.prevent-extensions');
 module.exports = require('../../modules/_core').Object.preventExtensions;
-},{"../../modules/_core":40,"../../modules/es6.object.prevent-extensions":101}],33:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.prevent-extensions":102}],34:[function(require,module,exports){
 require('../../modules/es6.symbol');
 require('../../modules/es6.object.to-string');
 require('../../modules/es7.symbol.async-iterator');
 require('../../modules/es7.symbol.observable');
 module.exports = require('../../modules/_core').Symbol;
-},{"../../modules/_core":40,"../../modules/es6.object.to-string":102,"../../modules/es6.symbol":104,"../../modules/es7.symbol.async-iterator":105,"../../modules/es7.symbol.observable":106}],34:[function(require,module,exports){
+},{"../../modules/_core":41,"../../modules/es6.object.to-string":103,"../../modules/es6.symbol":105,"../../modules/es7.symbol.async-iterator":106,"../../modules/es7.symbol.observable":107}],35:[function(require,module,exports){
 require('../../modules/es6.string.iterator');
 require('../../modules/web.dom.iterable');
 module.exports = require('../../modules/_wks-ext').f('iterator');
-},{"../../modules/_wks-ext":90,"../../modules/es6.string.iterator":103,"../../modules/web.dom.iterable":107}],35:[function(require,module,exports){
+},{"../../modules/_wks-ext":91,"../../modules/es6.string.iterator":104,"../../modules/web.dom.iterable":108}],36:[function(require,module,exports){
 module.exports = function(it){
   if(typeof it != 'function')throw TypeError(it + ' is not a function!');
   return it;
 };
-},{}],36:[function(require,module,exports){
-module.exports = function(){ /* empty */ };
 },{}],37:[function(require,module,exports){
+module.exports = function(){ /* empty */ };
+},{}],38:[function(require,module,exports){
 var isObject = require('./_is-object');
 module.exports = function(it){
   if(!isObject(it))throw TypeError(it + ' is not an object!');
   return it;
 };
-},{"./_is-object":56}],38:[function(require,module,exports){
+},{"./_is-object":57}],39:[function(require,module,exports){
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = require('./_to-iobject')
@@ -660,16 +723,16 @@ module.exports = function(IS_INCLUDES){
     } return !IS_INCLUDES && -1;
   };
 };
-},{"./_to-index":82,"./_to-iobject":84,"./_to-length":85}],39:[function(require,module,exports){
+},{"./_to-index":83,"./_to-iobject":85,"./_to-length":86}],40:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = function(it){
   return toString.call(it).slice(8, -1);
 };
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 var core = module.exports = {version: '2.4.0'};
 if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 // optional / simple context binding
 var aFunction = require('./_a-function');
 module.exports = function(fn, that, length){
@@ -690,18 +753,18 @@ module.exports = function(fn, that, length){
     return fn.apply(that, arguments);
   };
 };
-},{"./_a-function":35}],42:[function(require,module,exports){
+},{"./_a-function":36}],43:[function(require,module,exports){
 // 7.2.1 RequireObjectCoercible(argument)
 module.exports = function(it){
   if(it == undefined)throw TypeError("Can't call method on  " + it);
   return it;
 };
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 // Thank's IE8 for his funny defineProperty
 module.exports = !require('./_fails')(function(){
   return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
 });
-},{"./_fails":48}],44:[function(require,module,exports){
+},{"./_fails":49}],45:[function(require,module,exports){
 var isObject = require('./_is-object')
   , document = require('./_global').document
   // in old IE typeof document.createElement is 'object'
@@ -709,12 +772,12 @@ var isObject = require('./_is-object')
 module.exports = function(it){
   return is ? document.createElement(it) : {};
 };
-},{"./_global":49,"./_is-object":56}],45:[function(require,module,exports){
+},{"./_global":50,"./_is-object":57}],46:[function(require,module,exports){
 // IE 8- don't enum bug keys
 module.exports = (
   'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
 ).split(',');
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 // all enumerable object keys, includes symbols
 var getKeys = require('./_object-keys')
   , gOPS    = require('./_object-gops')
@@ -730,7 +793,7 @@ module.exports = function(it){
     while(symbols.length > i)if(isEnum.call(it, key = symbols[i++]))result.push(key);
   } return result;
 };
-},{"./_object-gops":70,"./_object-keys":73,"./_object-pie":74}],47:[function(require,module,exports){
+},{"./_object-gops":71,"./_object-keys":74,"./_object-pie":75}],48:[function(require,module,exports){
 var global    = require('./_global')
   , core      = require('./_core')
   , ctx       = require('./_ctx')
@@ -792,7 +855,7 @@ $export.W = 32;  // wrap
 $export.U = 64;  // safe
 $export.R = 128; // real proto method for `library` 
 module.exports = $export;
-},{"./_core":40,"./_ctx":41,"./_global":49,"./_hide":51}],48:[function(require,module,exports){
+},{"./_core":41,"./_ctx":42,"./_global":50,"./_hide":52}],49:[function(require,module,exports){
 module.exports = function(exec){
   try {
     return !!exec();
@@ -800,17 +863,17 @@ module.exports = function(exec){
     return true;
   }
 };
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 var global = module.exports = typeof window != 'undefined' && window.Math == Math
   ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
 if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
-},{}],50:[function(require,module,exports){
+},{}],51:[function(require,module,exports){
 var hasOwnProperty = {}.hasOwnProperty;
 module.exports = function(it, key){
   return hasOwnProperty.call(it, key);
 };
-},{}],51:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 var dP         = require('./_object-dp')
   , createDesc = require('./_property-desc');
 module.exports = require('./_descriptors') ? function(object, key, value){
@@ -819,29 +882,29 @@ module.exports = require('./_descriptors') ? function(object, key, value){
   object[key] = value;
   return object;
 };
-},{"./_descriptors":43,"./_object-dp":65,"./_property-desc":76}],52:[function(require,module,exports){
+},{"./_descriptors":44,"./_object-dp":66,"./_property-desc":77}],53:[function(require,module,exports){
 module.exports = require('./_global').document && document.documentElement;
-},{"./_global":49}],53:[function(require,module,exports){
+},{"./_global":50}],54:[function(require,module,exports){
 module.exports = !require('./_descriptors') && !require('./_fails')(function(){
   return Object.defineProperty(require('./_dom-create')('div'), 'a', {get: function(){ return 7; }}).a != 7;
 });
-},{"./_descriptors":43,"./_dom-create":44,"./_fails":48}],54:[function(require,module,exports){
+},{"./_descriptors":44,"./_dom-create":45,"./_fails":49}],55:[function(require,module,exports){
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
 var cof = require('./_cof');
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
-},{"./_cof":39}],55:[function(require,module,exports){
+},{"./_cof":40}],56:[function(require,module,exports){
 // 7.2.2 IsArray(argument)
 var cof = require('./_cof');
 module.exports = Array.isArray || function isArray(arg){
   return cof(arg) == 'Array';
 };
-},{"./_cof":39}],56:[function(require,module,exports){
+},{"./_cof":40}],57:[function(require,module,exports){
 module.exports = function(it){
   return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 'use strict';
 var create         = require('./_object-create')
   , descriptor     = require('./_property-desc')
@@ -855,7 +918,7 @@ module.exports = function(Constructor, NAME, next){
   Constructor.prototype = create(IteratorPrototype, {next: descriptor(1, next)});
   setToStringTag(Constructor, NAME + ' Iterator');
 };
-},{"./_hide":51,"./_object-create":64,"./_property-desc":76,"./_set-to-string-tag":78,"./_wks":91}],58:[function(require,module,exports){
+},{"./_hide":52,"./_object-create":65,"./_property-desc":77,"./_set-to-string-tag":79,"./_wks":92}],59:[function(require,module,exports){
 'use strict';
 var LIBRARY        = require('./_library')
   , $export        = require('./_export')
@@ -926,13 +989,13 @@ module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED
   }
   return methods;
 };
-},{"./_export":47,"./_has":50,"./_hide":51,"./_iter-create":57,"./_iterators":60,"./_library":62,"./_object-gpo":71,"./_redefine":77,"./_set-to-string-tag":78,"./_wks":91}],59:[function(require,module,exports){
+},{"./_export":48,"./_has":51,"./_hide":52,"./_iter-create":58,"./_iterators":61,"./_library":63,"./_object-gpo":72,"./_redefine":78,"./_set-to-string-tag":79,"./_wks":92}],60:[function(require,module,exports){
 module.exports = function(done, value){
   return {value: value, done: !!done};
 };
-},{}],60:[function(require,module,exports){
-module.exports = {};
 },{}],61:[function(require,module,exports){
+module.exports = {};
+},{}],62:[function(require,module,exports){
 var getKeys   = require('./_object-keys')
   , toIObject = require('./_to-iobject');
 module.exports = function(object, el){
@@ -943,9 +1006,9 @@ module.exports = function(object, el){
     , key;
   while(length > index)if(O[key = keys[index++]] === el)return key;
 };
-},{"./_object-keys":73,"./_to-iobject":84}],62:[function(require,module,exports){
+},{"./_object-keys":74,"./_to-iobject":85}],63:[function(require,module,exports){
 module.exports = true;
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 var META     = require('./_uid')('meta')
   , isObject = require('./_is-object')
   , has      = require('./_has')
@@ -999,7 +1062,7 @@ var meta = module.exports = {
   getWeak:  getWeak,
   onFreeze: onFreeze
 };
-},{"./_fails":48,"./_has":50,"./_is-object":56,"./_object-dp":65,"./_uid":88}],64:[function(require,module,exports){
+},{"./_fails":49,"./_has":51,"./_is-object":57,"./_object-dp":66,"./_uid":89}],65:[function(require,module,exports){
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject    = require('./_an-object')
   , dPs         = require('./_object-dps')
@@ -1040,7 +1103,7 @@ module.exports = Object.create || function create(O, Properties){
   } else result = createDict();
   return Properties === undefined ? result : dPs(result, Properties);
 };
-},{"./_an-object":37,"./_dom-create":44,"./_enum-bug-keys":45,"./_html":52,"./_object-dps":66,"./_shared-key":79}],65:[function(require,module,exports){
+},{"./_an-object":38,"./_dom-create":45,"./_enum-bug-keys":46,"./_html":53,"./_object-dps":67,"./_shared-key":80}],66:[function(require,module,exports){
 var anObject       = require('./_an-object')
   , IE8_DOM_DEFINE = require('./_ie8-dom-define')
   , toPrimitive    = require('./_to-primitive')
@@ -1057,7 +1120,7 @@ exports.f = require('./_descriptors') ? Object.defineProperty : function defineP
   if('value' in Attributes)O[P] = Attributes.value;
   return O;
 };
-},{"./_an-object":37,"./_descriptors":43,"./_ie8-dom-define":53,"./_to-primitive":87}],66:[function(require,module,exports){
+},{"./_an-object":38,"./_descriptors":44,"./_ie8-dom-define":54,"./_to-primitive":88}],67:[function(require,module,exports){
 var dP       = require('./_object-dp')
   , anObject = require('./_an-object')
   , getKeys  = require('./_object-keys');
@@ -1071,7 +1134,7 @@ module.exports = require('./_descriptors') ? Object.defineProperties : function 
   while(length > i)dP.f(O, P = keys[i++], Properties[P]);
   return O;
 };
-},{"./_an-object":37,"./_descriptors":43,"./_object-dp":65,"./_object-keys":73}],67:[function(require,module,exports){
+},{"./_an-object":38,"./_descriptors":44,"./_object-dp":66,"./_object-keys":74}],68:[function(require,module,exports){
 var pIE            = require('./_object-pie')
   , createDesc     = require('./_property-desc')
   , toIObject      = require('./_to-iobject')
@@ -1088,7 +1151,7 @@ exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor
   } catch(e){ /* empty */ }
   if(has(O, P))return createDesc(!pIE.f.call(O, P), O[P]);
 };
-},{"./_descriptors":43,"./_has":50,"./_ie8-dom-define":53,"./_object-pie":74,"./_property-desc":76,"./_to-iobject":84,"./_to-primitive":87}],68:[function(require,module,exports){
+},{"./_descriptors":44,"./_has":51,"./_ie8-dom-define":54,"./_object-pie":75,"./_property-desc":77,"./_to-iobject":85,"./_to-primitive":88}],69:[function(require,module,exports){
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = require('./_to-iobject')
   , gOPN      = require('./_object-gopn').f
@@ -1109,7 +1172,7 @@ module.exports.f = function getOwnPropertyNames(it){
   return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
 };
 
-},{"./_object-gopn":69,"./_to-iobject":84}],69:[function(require,module,exports){
+},{"./_object-gopn":70,"./_to-iobject":85}],70:[function(require,module,exports){
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 var $keys      = require('./_object-keys-internal')
   , hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
@@ -1117,9 +1180,9 @@ var $keys      = require('./_object-keys-internal')
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
   return $keys(O, hiddenKeys);
 };
-},{"./_enum-bug-keys":45,"./_object-keys-internal":72}],70:[function(require,module,exports){
+},{"./_enum-bug-keys":46,"./_object-keys-internal":73}],71:[function(require,module,exports){
 exports.f = Object.getOwnPropertySymbols;
-},{}],71:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has         = require('./_has')
   , toObject    = require('./_to-object')
@@ -1133,7 +1196,7 @@ module.exports = Object.getPrototypeOf || function(O){
     return O.constructor.prototype;
   } return O instanceof Object ? ObjectProto : null;
 };
-},{"./_has":50,"./_shared-key":79,"./_to-object":86}],72:[function(require,module,exports){
+},{"./_has":51,"./_shared-key":80,"./_to-object":87}],73:[function(require,module,exports){
 var has          = require('./_has')
   , toIObject    = require('./_to-iobject')
   , arrayIndexOf = require('./_array-includes')(false)
@@ -1151,7 +1214,7 @@ module.exports = function(object, names){
   }
   return result;
 };
-},{"./_array-includes":38,"./_has":50,"./_shared-key":79,"./_to-iobject":84}],73:[function(require,module,exports){
+},{"./_array-includes":39,"./_has":51,"./_shared-key":80,"./_to-iobject":85}],74:[function(require,module,exports){
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
 var $keys       = require('./_object-keys-internal')
   , enumBugKeys = require('./_enum-bug-keys');
@@ -1159,9 +1222,9 @@ var $keys       = require('./_object-keys-internal')
 module.exports = Object.keys || function keys(O){
   return $keys(O, enumBugKeys);
 };
-},{"./_enum-bug-keys":45,"./_object-keys-internal":72}],74:[function(require,module,exports){
+},{"./_enum-bug-keys":46,"./_object-keys-internal":73}],75:[function(require,module,exports){
 exports.f = {}.propertyIsEnumerable;
-},{}],75:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 // most Object methods by ES6 should accept primitives
 var $export = require('./_export')
   , core    = require('./_core')
@@ -1172,7 +1235,7 @@ module.exports = function(KEY, exec){
   exp[KEY] = exec(fn);
   $export($export.S + $export.F * fails(function(){ fn(1); }), 'Object', exp);
 };
-},{"./_core":40,"./_export":47,"./_fails":48}],76:[function(require,module,exports){
+},{"./_core":41,"./_export":48,"./_fails":49}],77:[function(require,module,exports){
 module.exports = function(bitmap, value){
   return {
     enumerable  : !(bitmap & 1),
@@ -1181,9 +1244,9 @@ module.exports = function(bitmap, value){
     value       : value
   };
 };
-},{}],77:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 module.exports = require('./_hide');
-},{"./_hide":51}],78:[function(require,module,exports){
+},{"./_hide":52}],79:[function(require,module,exports){
 var def = require('./_object-dp').f
   , has = require('./_has')
   , TAG = require('./_wks')('toStringTag');
@@ -1191,20 +1254,20 @@ var def = require('./_object-dp').f
 module.exports = function(it, tag, stat){
   if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
 };
-},{"./_has":50,"./_object-dp":65,"./_wks":91}],79:[function(require,module,exports){
+},{"./_has":51,"./_object-dp":66,"./_wks":92}],80:[function(require,module,exports){
 var shared = require('./_shared')('keys')
   , uid    = require('./_uid');
 module.exports = function(key){
   return shared[key] || (shared[key] = uid(key));
 };
-},{"./_shared":80,"./_uid":88}],80:[function(require,module,exports){
+},{"./_shared":81,"./_uid":89}],81:[function(require,module,exports){
 var global = require('./_global')
   , SHARED = '__core-js_shared__'
   , store  = global[SHARED] || (global[SHARED] = {});
 module.exports = function(key){
   return store[key] || (store[key] = {});
 };
-},{"./_global":49}],81:[function(require,module,exports){
+},{"./_global":50}],82:[function(require,module,exports){
 var toInteger = require('./_to-integer')
   , defined   = require('./_defined');
 // true  -> String#at
@@ -1222,7 +1285,7 @@ module.exports = function(TO_STRING){
       : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
   };
 };
-},{"./_defined":42,"./_to-integer":83}],82:[function(require,module,exports){
+},{"./_defined":43,"./_to-integer":84}],83:[function(require,module,exports){
 var toInteger = require('./_to-integer')
   , max       = Math.max
   , min       = Math.min;
@@ -1230,34 +1293,34 @@ module.exports = function(index, length){
   index = toInteger(index);
   return index < 0 ? max(index + length, 0) : min(index, length);
 };
-},{"./_to-integer":83}],83:[function(require,module,exports){
+},{"./_to-integer":84}],84:[function(require,module,exports){
 // 7.1.4 ToInteger
 var ceil  = Math.ceil
   , floor = Math.floor;
 module.exports = function(it){
   return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
 };
-},{}],84:[function(require,module,exports){
+},{}],85:[function(require,module,exports){
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 var IObject = require('./_iobject')
   , defined = require('./_defined');
 module.exports = function(it){
   return IObject(defined(it));
 };
-},{"./_defined":42,"./_iobject":54}],85:[function(require,module,exports){
+},{"./_defined":43,"./_iobject":55}],86:[function(require,module,exports){
 // 7.1.15 ToLength
 var toInteger = require('./_to-integer')
   , min       = Math.min;
 module.exports = function(it){
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 };
-},{"./_to-integer":83}],86:[function(require,module,exports){
+},{"./_to-integer":84}],87:[function(require,module,exports){
 // 7.1.13 ToObject(argument)
 var defined = require('./_defined');
 module.exports = function(it){
   return Object(defined(it));
 };
-},{"./_defined":42}],87:[function(require,module,exports){
+},{"./_defined":43}],88:[function(require,module,exports){
 // 7.1.1 ToPrimitive(input [, PreferredType])
 var isObject = require('./_is-object');
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
@@ -1270,13 +1333,13 @@ module.exports = function(it, S){
   if(!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
   throw TypeError("Can't convert object to primitive value");
 };
-},{"./_is-object":56}],88:[function(require,module,exports){
+},{"./_is-object":57}],89:[function(require,module,exports){
 var id = 0
   , px = Math.random();
 module.exports = function(key){
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 };
-},{}],89:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 var global         = require('./_global')
   , core           = require('./_core')
   , LIBRARY        = require('./_library')
@@ -1286,9 +1349,9 @@ module.exports = function(name){
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
   if(name.charAt(0) != '_' && !(name in $Symbol))defineProperty($Symbol, name, {value: wksExt.f(name)});
 };
-},{"./_core":40,"./_global":49,"./_library":62,"./_object-dp":65,"./_wks-ext":90}],90:[function(require,module,exports){
+},{"./_core":41,"./_global":50,"./_library":63,"./_object-dp":66,"./_wks-ext":91}],91:[function(require,module,exports){
 exports.f = require('./_wks');
-},{"./_wks":91}],91:[function(require,module,exports){
+},{"./_wks":92}],92:[function(require,module,exports){
 var store      = require('./_shared')('wks')
   , uid        = require('./_uid')
   , Symbol     = require('./_global').Symbol
@@ -1300,7 +1363,7 @@ var $exports = module.exports = function(name){
 };
 
 $exports.store = store;
-},{"./_global":49,"./_shared":80,"./_uid":88}],92:[function(require,module,exports){
+},{"./_global":50,"./_shared":81,"./_uid":89}],93:[function(require,module,exports){
 'use strict';
 var addToUnscopables = require('./_add-to-unscopables')
   , step             = require('./_iter-step')
@@ -1335,19 +1398,19 @@ Iterators.Arguments = Iterators.Array;
 addToUnscopables('keys');
 addToUnscopables('values');
 addToUnscopables('entries');
-},{"./_add-to-unscopables":36,"./_iter-define":58,"./_iter-step":59,"./_iterators":60,"./_to-iobject":84}],93:[function(require,module,exports){
+},{"./_add-to-unscopables":37,"./_iter-define":59,"./_iter-step":60,"./_iterators":61,"./_to-iobject":85}],94:[function(require,module,exports){
 var $export = require('./_export')
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 $export($export.S, 'Object', {create: require('./_object-create')});
-},{"./_export":47,"./_object-create":64}],94:[function(require,module,exports){
+},{"./_export":48,"./_object-create":65}],95:[function(require,module,exports){
 var $export = require('./_export');
 // 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
 $export($export.S + $export.F * !require('./_descriptors'), 'Object', {defineProperties: require('./_object-dps')});
-},{"./_descriptors":43,"./_export":47,"./_object-dps":66}],95:[function(require,module,exports){
+},{"./_descriptors":44,"./_export":48,"./_object-dps":67}],96:[function(require,module,exports){
 var $export = require('./_export');
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
 $export($export.S + $export.F * !require('./_descriptors'), 'Object', {defineProperty: require('./_object-dp').f});
-},{"./_descriptors":43,"./_export":47,"./_object-dp":65}],96:[function(require,module,exports){
+},{"./_descriptors":44,"./_export":48,"./_object-dp":66}],97:[function(require,module,exports){
 // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
 var toIObject                 = require('./_to-iobject')
   , $getOwnPropertyDescriptor = require('./_object-gopd').f;
@@ -1357,12 +1420,12 @@ require('./_object-sap')('getOwnPropertyDescriptor', function(){
     return $getOwnPropertyDescriptor(toIObject(it), key);
   };
 });
-},{"./_object-gopd":67,"./_object-sap":75,"./_to-iobject":84}],97:[function(require,module,exports){
+},{"./_object-gopd":68,"./_object-sap":76,"./_to-iobject":85}],98:[function(require,module,exports){
 // 19.1.2.7 Object.getOwnPropertyNames(O)
 require('./_object-sap')('getOwnPropertyNames', function(){
   return require('./_object-gopn-ext').f;
 });
-},{"./_object-gopn-ext":68,"./_object-sap":75}],98:[function(require,module,exports){
+},{"./_object-gopn-ext":69,"./_object-sap":76}],99:[function(require,module,exports){
 // 19.1.2.9 Object.getPrototypeOf(O)
 var toObject        = require('./_to-object')
   , $getPrototypeOf = require('./_object-gpo');
@@ -1372,7 +1435,7 @@ require('./_object-sap')('getPrototypeOf', function(){
     return $getPrototypeOf(toObject(it));
   };
 });
-},{"./_object-gpo":71,"./_object-sap":75,"./_to-object":86}],99:[function(require,module,exports){
+},{"./_object-gpo":72,"./_object-sap":76,"./_to-object":87}],100:[function(require,module,exports){
 // 19.1.2.11 Object.isExtensible(O)
 var isObject = require('./_is-object');
 
@@ -1381,7 +1444,7 @@ require('./_object-sap')('isExtensible', function($isExtensible){
     return isObject(it) ? $isExtensible ? $isExtensible(it) : true : false;
   };
 });
-},{"./_is-object":56,"./_object-sap":75}],100:[function(require,module,exports){
+},{"./_is-object":57,"./_object-sap":76}],101:[function(require,module,exports){
 // 19.1.2.14 Object.keys(O)
 var toObject = require('./_to-object')
   , $keys    = require('./_object-keys');
@@ -1391,7 +1454,7 @@ require('./_object-sap')('keys', function(){
     return $keys(toObject(it));
   };
 });
-},{"./_object-keys":73,"./_object-sap":75,"./_to-object":86}],101:[function(require,module,exports){
+},{"./_object-keys":74,"./_object-sap":76,"./_to-object":87}],102:[function(require,module,exports){
 // 19.1.2.15 Object.preventExtensions(O)
 var isObject = require('./_is-object')
   , meta     = require('./_meta').onFreeze;
@@ -1401,9 +1464,9 @@ require('./_object-sap')('preventExtensions', function($preventExtensions){
     return $preventExtensions && isObject(it) ? $preventExtensions(meta(it)) : it;
   };
 });
-},{"./_is-object":56,"./_meta":63,"./_object-sap":75}],102:[function(require,module,exports){
+},{"./_is-object":57,"./_meta":64,"./_object-sap":76}],103:[function(require,module,exports){
 
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 'use strict';
 var $at  = require('./_string-at')(true);
 
@@ -1421,7 +1484,7 @@ require('./_iter-define')(String, 'String', function(iterated){
   this._i += point.length;
   return {value: point, done: false};
 });
-},{"./_iter-define":58,"./_string-at":81}],104:[function(require,module,exports){
+},{"./_iter-define":59,"./_string-at":82}],105:[function(require,module,exports){
 'use strict';
 // ECMAScript 6 symbols shim
 var global         = require('./_global')
@@ -1657,11 +1720,11 @@ setToStringTag($Symbol, 'Symbol');
 setToStringTag(Math, 'Math', true);
 // 24.3.3 JSON[@@toStringTag]
 setToStringTag(global.JSON, 'JSON', true);
-},{"./_an-object":37,"./_descriptors":43,"./_enum-keys":46,"./_export":47,"./_fails":48,"./_global":49,"./_has":50,"./_hide":51,"./_is-array":55,"./_keyof":61,"./_library":62,"./_meta":63,"./_object-create":64,"./_object-dp":65,"./_object-gopd":67,"./_object-gopn":69,"./_object-gopn-ext":68,"./_object-gops":70,"./_object-keys":73,"./_object-pie":74,"./_property-desc":76,"./_redefine":77,"./_set-to-string-tag":78,"./_shared":80,"./_to-iobject":84,"./_to-primitive":87,"./_uid":88,"./_wks":91,"./_wks-define":89,"./_wks-ext":90}],105:[function(require,module,exports){
+},{"./_an-object":38,"./_descriptors":44,"./_enum-keys":47,"./_export":48,"./_fails":49,"./_global":50,"./_has":51,"./_hide":52,"./_is-array":56,"./_keyof":62,"./_library":63,"./_meta":64,"./_object-create":65,"./_object-dp":66,"./_object-gopd":68,"./_object-gopn":70,"./_object-gopn-ext":69,"./_object-gops":71,"./_object-keys":74,"./_object-pie":75,"./_property-desc":77,"./_redefine":78,"./_set-to-string-tag":79,"./_shared":81,"./_to-iobject":85,"./_to-primitive":88,"./_uid":89,"./_wks":92,"./_wks-define":90,"./_wks-ext":91}],106:[function(require,module,exports){
 require('./_wks-define')('asyncIterator');
-},{"./_wks-define":89}],106:[function(require,module,exports){
+},{"./_wks-define":90}],107:[function(require,module,exports){
 require('./_wks-define')('observable');
-},{"./_wks-define":89}],107:[function(require,module,exports){
+},{"./_wks-define":90}],108:[function(require,module,exports){
 require('./es6.array.iterator');
 var global        = require('./_global')
   , hide          = require('./_hide')
@@ -1675,7 +1738,7 @@ for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList'
   if(proto && !proto[TO_STRING_TAG])hide(proto, TO_STRING_TAG, NAME);
   Iterators[NAME] = Iterators.Array;
 }
-},{"./_global":49,"./_hide":51,"./_iterators":60,"./_wks":91,"./es6.array.iterator":92}],108:[function(require,module,exports){
+},{"./_global":50,"./_hide":52,"./_iterators":61,"./_wks":92,"./es6.array.iterator":93}],109:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -2034,7 +2097,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     moment.YEAR = 7;
     return moment;
 });
-},{}],109:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2135,7 +2198,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],110:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -2435,7 +2498,7 @@ function format (id) {
   return id.match(/[^\/]+\.vue$/)[0]
 }
 
-},{}],111:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 /**
  * vue-resource v0.7.2
  * https://github.com/vuejs/vue-resource
@@ -4093,7 +4156,7 @@ module.exports =
 
 /***/ }
 /******/ ]);
-},{}],112:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 /*!
  * vue-router v0.7.13
  * (c) 2016 Evan You
@@ -6803,7 +6866,7 @@ module.exports =
   return Router;
 
 }));
-},{}],113:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 "use strict";
 
 var _stringify = require("babel-runtime/core-js/json/stringify");
@@ -7744,7 +7807,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }]);
 });
 
-},{"babel-runtime/core-js/json/stringify":8,"babel-runtime/core-js/object/create":9,"babel-runtime/core-js/object/define-properties":10,"babel-runtime/core-js/object/define-property":11,"babel-runtime/core-js/object/get-own-property-descriptor":12,"babel-runtime/core-js/object/get-own-property-names":13,"babel-runtime/core-js/object/get-own-property-symbols":14,"babel-runtime/core-js/object/get-prototype-of":15,"babel-runtime/core-js/object/is-extensible":16,"babel-runtime/core-js/object/keys":17,"babel-runtime/core-js/object/prevent-extensions":18,"babel-runtime/helpers/typeof":21}],114:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":9,"babel-runtime/core-js/object/create":10,"babel-runtime/core-js/object/define-properties":11,"babel-runtime/core-js/object/define-property":12,"babel-runtime/core-js/object/get-own-property-descriptor":13,"babel-runtime/core-js/object/get-own-property-names":14,"babel-runtime/core-js/object/get-own-property-symbols":15,"babel-runtime/core-js/object/get-prototype-of":16,"babel-runtime/core-js/object/is-extensible":17,"babel-runtime/core-js/object/keys":18,"babel-runtime/core-js/object/prevent-extensions":19,"babel-runtime/helpers/typeof":22}],115:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.24
@@ -17777,7 +17840,7 @@ setTimeout(function () {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":109}],115:[function(require,module,exports){
+},{"_process":110}],116:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {

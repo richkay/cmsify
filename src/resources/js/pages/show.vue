@@ -47,8 +47,11 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
             <h2>{{ model.title }}</h2>
+
             <p align="right">{{ model.updated_at }}</p>
+
             <p>{{{ model.text }}}</p>
 
             <div v-if="model.tags && model.tags.length > 0">
