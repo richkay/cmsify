@@ -21,4 +21,12 @@ See config where you can change,for example, routing stuff like middleware and p
  
 `config/cmsify.php`
  
-    
+**Package Updates**
+
+If you just want to update the javascript code run 
+
+´php artisan --force vendor:publish --tag=public´
+
+instead of overwriting everythink like configuration file and the view template
+
+´php artisan --force vendor:publish´
