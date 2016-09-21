@@ -1,16 +1,19 @@
 <script type="text/javascript">
-    function initSummernote() {
+    function initSummernote()
+    {
         return $('.Summernote').summernote({
             height: 200,
             callbacks: {
-                onImageUpload: function (files) {
+                onImageUpload: function (files)
+                {
                     sendFile(files[0], $(this), $(this)[0].name);
                 }
             }
         });
     }
 
-    function sendFile(file, editor, context) {
+    function sendFile(file, editor, context)
+    {
         var formData = new FormData();
         formData.append("file", file);
         formData.append("context", context); // posts, etc...
@@ -23,10 +26,12 @@
             cache: false,
             contentType: false,
             processData: false,
-            success: function (url) {
+            success: function (url)
+            {
                 editor.summernote('insertImage', url);
             },
-            error: function (response) {
+            error: function (response)
+            {
 
             }
         });

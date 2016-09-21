@@ -16,17 +16,27 @@
 
         ready() {
 
+            setTimeout(function ()
+            {
+                $('[data-toggle="tooltip"]').tooltip()
+            }, 1000);
+
         },
 
         methods: {
 
             load(categoryId) {
-                if (parseInt(categoryId)) {
-                    this.$http.get('/cmsify/api/categories/' + categoryId + '/posts').then(r => {
+                if (parseInt(categoryId))
+                {
+                    this.$http.get('/cmsify/api/categories/' + categoryId + '/posts').then(r =>
+                    {
                         this.posts = r.data;
                     });
-                } else {
-                    this.$http.get('/cmsify/api/posts').then(r => {
+                }
+                else
+                {
+                    this.$http.get('/cmsify/api/posts').then(r =>
+                    {
                         this.posts = r.data;
                     });
                 }
@@ -34,7 +44,8 @@
 
             destroy(post) {
 
-                this.$http.delete('/cmsify/api/posts/' + post.id).then(r => {
+                this.$http.delete('/cmsify/api/posts/' + post.id).then(r =>
+                {
                     this.posts.$remove(post);
                 });
 
@@ -92,14 +103,26 @@
                                    v-link="{name : 'page_edit', params : {categoryId : $route.params.categoryId, id: post.id }}"
                                    class="btn btn-primary"
                                 ><i class="fa fa-edit"></i></a>
-                                <button disabled v-else class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                                <button v-else
+                                        style="opacity: 0.5"
+                                        class="btn btn-primary"
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="only Creator has Permission"
+                                ><i class="fa fa-edit"></i></button>
 
                                 <!--Remove Button-->
-                                <button v-if="post.canDelete" @click="destroy(post)" class="btn btn-danger"><i class="fa fa-remove"></i>
-                                <button v-else disabled class="btn btn-danger"><i class="fa fa-remove"></i>
-
-
+                                <button v-if="post.canDelete" @click="destroy(post)" class="btn btn-danger"><i
+                                        class="fa fa-remove"></i></button>
+                                <button v-else
+                                        style="opacity: 0.5"
+                                        class="btn btn-danger"
+                                        data-toggle="tooltip"
+                                        data-placement="left"
+                                        title="only Creator has Permission"
+                                ><i class="fa fa-remove"></i>
                                 </button>
+
                             </td>
                         </tr>
                         </tbody>
